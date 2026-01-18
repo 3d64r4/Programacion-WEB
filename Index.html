@@ -1,69 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>N De-XOO</title>
     <link rel="stylesheet" href="style.css">
-    <script src="javascript.js"></script>
+    <script src="javascript.js" defer></script>
 
 </head>
+
 <body style="margin: 0 auto; padding: 0; box-sizing: border-box;">
     <header>
         <nav>
             <ul style="display: flex; list-style: none; justify-content: space-around;">
                 <li><a href="#title">Inicio</a></li>
-                <li><a href="#skills">Temario</a></li>
-                <li><a href="#learning">cursos</a></li>
+                <li><a href="#skills">Que son las TE</a></li>
+                <li><a href="#learning">Registro</a></li>
             </ul>
-            </nav>
-    <main style="margin-top: 70px; padding: 20px;">
-    <h1 id="title">Sitio de prueba</h1>
-    <h2>este es el h2</h2>
-</main>
+        </nav>
+        <main style="margin-top: 70px; padding: 20px;">
+            <h1 id="title">N De-XOO</h1>
+
+            <h2>Debes saber cuando ya lidiaste mucho tiempo a una persona dificil (N De-XOO) y que si los hay </h2>
+        </main>
+
+
+    <div id="home">
+  <div id="home1">
+    <h3 class="divhome">¿Para qué es esta herramienta?</h3>
     <article>
+      <h3 class="divhome" id="herramienta">
+        Esta herramienta no solo te ayuda a externalizar sino también a cuantificar
+        el impacto, lo que facilita tomar decisiones más objetivas sobre si necesitas
+        cambiar tu relación con esa persona, poner límites o replantear tu entorno.
+      </h3>
+    </article>
+  </div>
 
-    <h4 id="skills">este es el h4</h4>
-    <a href="Plan de estudio.pdf" download="Cronograma">Descarga el temario</a>
-    <h5>este es el h5</h5>
-    <h6>este es el h6</h6>
-</article>
+  <div id="home2">
+    <article>
+      <h3 class="divhome">
+        Este pendejómetro te ayuda a llevar el registro de las veces que una persona te causó un problema
+      </h3>
+      <h3 class="divhome">
+        Así podrás saber cuándo ya es mucho y cuándo es hora de tomar una decisión
+      </h3>
+    </article>
+  </div>
+</div>
 
-    <p>estos son los parrafos</p>
-    <h3 id="learning">Temario</h3>
-    <ul>
-        <div>
-        <figure>
-            <li>HTML</li> <a target="_blank" href="http://google.com"> <img src="html.svg" alt="logo html" width="300px" height="auto"></a>
-
-
-            <li>CSS</li><img src="css.svg" alt="logo css" width="300px" height="auto">
-        <li>javascript</li> <img src="javascript.svg" alt="logo javascript" width="300px" height="auto">
-        <figcaption>Este es html</figcaption>
-        </figure>
-        </div>
-
-
-    </ul>
+       
 
 
-    <p>Hola mundo</p>
+        <a href="tecnicas.pdf" download="tecnicas.pdf">Que son la tecnicas de
+            exteriorizacion</a>
+        
+       
+
+        <h3>Elige la opcion</h3>
+
+        <ul>
+            <div id="opciones">
+                <figure>
+                    <li class="divhome item1">Registra al N De-XOO</li> <a target="_blank" href="http://google.com"> </a> <img src="html.svg" alt="logo html" width="300px" height="auto">
+                </figure>
+                <figure>
+                    <li class="divhome item1">Agregra gotas al vaso</li> <a target="_blank" href="http://google.com"> </a> <img src="css.svg" alt="logo css" width="300px" height="auto">
+                </figure>
+                <figure>
+                    <li class="divhome item1">Ve como va el vaso</li> <a target="_blank" href="http://google.com"> </a> <img src="javascript.svg" alt="logo javascript" width="300px"height="auto">
+
+                    <figcaption>Crees que necesitas alguna otra opcion</figcaption>
+                </figure>
+            </div>
+        </ul>
+
+
+        <p>Esperamos poder ayudarte, mereces estar en paz</p>
 
         <a href="https:www.google.com"> buscador</a>
 
-<footer style="background-color: seagreen; border: 2px solid,black;">
-<form action="">
-<h2>Quiero informacion del curso</h2>
-<input class= "inputs" type="text" name ="nombre" placeholder="Edgar A" required>
-<input class= "inputs" type="email" name="correo" placeholder="ejemplo@hotmail.com" required>
-<input class= "inputs" type="submit" value="Enviar" style="height: 30px; margin-bottom: 5px; background-color: rgb(9, 82, 116); cursor: pointer;width: 10%;">
+        <footer>
+            <form action="" id="formulario">
+                <h2>Solicita mas informacion</h2>
+                <br>
+                <label for="nombre">Nombre</label>
+                <br>
+                <input class="inputs" id="nombre" type="text" name="nombre" placeholder="Edgar A" required required pattern="[A-Za-zÑñ]+"> <Title>Solo texto</Title> 
+                <br>
+                <label for="correo">Correo</label>
+                <br>
+                <input class="inputs" id="correo" type="email" name="correo" placeholder="ejemplo@hotmail.com" required>
+                <br>
+                <label for="comentarios">Comentarios</label>
+                <br>
+                <textarea class="inputs" id="comentarios" name="comentarios" placeholder="Escribe tus comentarios aqui..." required></textarea> 
+                
+                <input id="inputbuttom" type="submit" value="Enviar" > >
 
-
-
-</form>
-
-
-</footer>
+        </footer>
 
 </body>
 </html>
+
