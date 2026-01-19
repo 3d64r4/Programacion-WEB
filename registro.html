@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Registro de usuarios</title>
+  <style>
+    :root { --bg:#f7f7fb; --card:#ffffff; --text:#222; --muted:#666; --primary:#2563eb; --border:#e5e7eb; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:var(--bg); color:var(--text); }
+    .container { max-width: 720px; margin: 40px auto; padding: 24px; background: var(--card); border:1px solid var(--border); border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,.06); }
+    h1 { margin:0 0 8px; font-size: 1.6rem; }
+    p.desc { margin:0 0 24px; color:var(--muted); }
+    form { display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
+    .full { grid-column: 1 / -1; }
+    label { display:block; font-weight:600; margin-bottom:6px; }
+    input, select { width:100%; padding:10px 12px; border:1px solid var(--border); border-radius:8px; font-size:1rem; background:#fff; }
+    input:focus, select:focus { outline:2px solid var(--primary); outline-offset:2px; }
+    .hint { font-size:.85rem; color:var(--muted); margin-top:6px; }
+    .error { font-size:.85rem; color:#b91c1c; margin-top:6px; display:none; }
+    .actions { display:flex; gap:12px; margin-top:8px; }
+    button { padding:12px 16px; border:none; border-radius:8px; font-weight:600; cursor:pointer; }
+    .primary { background:var(--primary); color:#fff; }
+    .secondary { background:#e5e7eb; color:#111827; }
+    @media (max-width:720px){ form { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <main class="container" aria-labelledby="titulo">
+    <h1 id="titulo">Registro de usuarios</h1>
+    <p class="desc">Completa tus datos. Los campos marcados con * son obligatorios.</p>
+
+    <form id="registro" novalidate>
+      <!-- Nombre y apellidos -->
+      <div class="full">
+        <label for="nombre">Nombre *</label>
+        <input id="nombre" name="nombre" type="text" autocomplete="given-name" required />
+      </div>
+
+      <div>
+        <label for="apellidopaterno">Apellido paterno *</label>
+        <input id="apellidopaterno" name="apellidopaterno" type="text" autocomplete="family-name" required />
+      </div>
+
+      <div>
+        <label for="apellidomaterno">Apellido materno</label>
+        <input id="apellidomaterno" name="apellidomaterno" type="text" autocomplete="additional-name" />
+      </div>
+
+      <!-- Fecha de nacimiento y sexo -->
+      <div>
+        <label for="fechanacimiento">Fecha de nacimiento *</label>
+        <input id="fechanacimiento" name="fechanacimiento" type="date" required />
+      </div>
+
+      <div>
+        <label for="sexo">Sexo *</label>
+        <select id="sexo" name="sexo" required>
+          <option value="" selected disabled>Selecciona una opción</option>
+          <option value="femenino">Femenino</option>
+          <option value="masculino">Masculino</option>
+          <option value="otro">Otro / Prefiero no decir</option>
+        </select>
+      </div>
+
+      <!-- Correo -->
+      <div class="full">
+        <label for="correo">Correo electrónico *</label>
+        <input id="correo" name="correo" type="email" autocomplete="email" inputmode="email" required />
+        <p class="hint">Usa un correo válido (ej. nombre@dominio.com).</p>
+      </div>
+
+      <!-- País y ciudad -->
+      <div>
+        <label for="pais">País *</label>
+        <select id="pais" name="pais" autocomplete="country-name" required>
+          <option value="" selected disabled>Selecciona tu país</option>
+          <option value="MX">México</option>
+          <option value="US">Estados Unidos</option>
+          <option value="ES">España</option>
+          <option value="AR">Argentina</option>
+          <option value="CO">Colombia</option>
+          <option value="CL">Chile</option>
+          <option value="PE">Perú</option>
+          <option value="Otro">Otro</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="ciudad">Ciudad *</label>
+        <input id="ciudad" name="ciudad" type="text" autocomplete="address-level2" required />
+      </div>
+
+      <!-- Contraseña -->
+      <div>
+        <label for="contrasena">Contraseña *</label>
+        <input id="contrasena" name="contrasena" type="password" autocomplete="new-password"
+               minlength="8" required />
+        <p class="hint">Mínimo 8 caracteres. Recomendado: mayúsculas, minúsculas, números y símbolos.</p>
+      </div>
+
+      <div>
+        <label for="confirmacion">Confirma tu contraseña *</label>
+        <input id="confirmacion" name="confirmacion" type="password" autocomplete="new-password" required />
+        <p id="error-pass" class="error">Las contraseñas no coinciden.</p>
+      </div>
+
+      <!-- Acciones -->
+      <div class="full actions" role="group" aria-label="Acciones de formulario">
+        <button type="submit" class="primary">Crear cuenta</button>
+        <button type="reset" class="secondary">Limpiar</button>
+      </div>
+    </form>
+  </main>
+
+  <script>
+    // Validación de coincidencia de contraseñas y del formulario
+    const form = document.getElementById('registro');
+    const pass = document.getElementById('contrasena');
+    const confirm = document.getElementById('confirmacion');
+    const errorPass = document.getElementById('error-pass');
+
+    function checkPasswords() {
+      const match = pass.value === confirm.value;
+      errorPass.style.display = match ? 'none' : 'block';
+      confirm.setCustomValidity(match ? '' : 'Las contraseñas no coinciden');
+      return match;
+    }
+
+    pass.addEventListener('input', checkPasswords);
+    confirm.addEventListener('input', checkPasswords);
+
+    form.addEventListener('submit', (e) => {
+      // Fuerza validación HTML5 + coincidencia de contraseñas
+      if (!form.checkValidity() || !checkPasswords()) {
+        e.preventDefault();
+        form.reportValidity();
+      } else {
+        // Aquí podrías enviar los datos con fetch() o dejar que el navegador haga el submit
+        alert('Registro enviado correctamente.');
+      }
+    });
+  </script>
+</body>
+</html>
