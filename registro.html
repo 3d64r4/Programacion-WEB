@@ -4,140 +4,197 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Registro de usuarios</title>
+
   <style>
-    :root { --bg:#f7f7fb; --card:#ffffff; --text:#222; --muted:#666; --primary:#2563eb; --border:#e5e7eb; }
+    :root {
+      --bg:#f7f7fb; --card:#ffffff; --text:#222; --muted:#666;
+      --primary:#2563eb; --border:#e5e7eb;
+    }
     * { box-sizing: border-box; }
-    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:var(--bg); color:var(--text); }
-    .container { max-width: 720px; margin: 40px auto; padding: 24px; background: var(--card); border:1px solid var(--border); border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,.06); }
-    h1 { margin:0 0 8px; font-size: 1.6rem; }
+    body {
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+    .container {
+      max-width:720px;
+      margin:40px auto;
+      padding:24px;
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:12px;
+      box-shadow:0 8px 24px rgba(0,0,0,.06);
+    }
+    h1 { margin:0 0 8px; font-size:1.6rem; }
     p.desc { margin:0 0 24px; color:var(--muted); }
-    form { display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
-    .full { grid-column: 1 / -1; }
+    form { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .full { grid-column:1 / -1; }
     label { display:block; font-weight:600; margin-bottom:6px; }
-    input, select { width:100%; padding:10px 12px; border:1px solid var(--border); border-radius:8px; font-size:1rem; background:#fff; }
-    input:focus, select:focus { outline:2px solid var(--primary); outline-offset:2px; }
-    .hint { font-size:.85rem; color:var(--muted); margin-top:6px; }
-    .error { font-size:.85rem; color:#b91c1c; margin-top:6px; display:none; }
+    input, select {
+      width:100%; padding:10px 12px;
+      border:1px solid var(--border);
+      border-radius:8px; font-size:1rem;
+    }
+    input:focus, select:focus {
+      outline:2px solid var(--primary);
+      outline-offset:2px;
+    }
+    .hint { font-size:.85rem; color:var(--muted); }
+    .error { font-size:.85rem; color:#b91c1c; display:none; }
     .actions { display:flex; gap:12px; margin-top:8px; }
-    button { padding:12px 16px; border:none; border-radius:8px; font-weight:600; cursor:pointer; }
+    button {
+      padding:12px 16px;
+      border:none; border-radius:8px;
+      font-weight:600; cursor:pointer;
+    }
     .primary { background:var(--primary); color:#fff; }
-    .secondary { background:#e5e7eb; color:#111827; }
-    @media (max-width:720px){ form { grid-template-columns: 1fr; } }
+    .secondary { background:#e5e7eb; }
+    @media (max-width:720px){
+      form { grid-template-columns:1fr; }
+    }
   </style>
 </head>
+
 <body>
-  <main class="container" aria-labelledby="titulo">
-    <h1 id="titulo">Registro de usuarios</h1>
-    <p class="desc">Completa tus datos. Los campos marcados con * son obligatorios.</p>
+  <main class="container">
+    <h1>Registro de usuarios</h1>
+    <p class="desc">Completa tus datos.</p>
 
     <form id="registro" novalidate>
-      <!-- Nombre y apellidos -->
       <div class="full">
-        <label for="nombre">Nombre *</label>
-        <input id="nombre" name="nombre" type="text" autocomplete="given-name" required />
+        <label>Nombre *</label>
+        <input id="nombre" required>
       </div>
 
       <div>
-        <label for="apellidopaterno">Apellido paterno *</label>
-        <input id="apellidopaterno" name="apellidopaterno" type="text" autocomplete="family-name" required />
+        <label>Apellido paterno *</label>
+        <input id="apellidopaterno" required>
       </div>
 
       <div>
-        <label for="apellidomaterno">Apellido materno</label>
-        <input id="apellidomaterno" name="apellidomaterno" type="text" autocomplete="additional-name" />
-      </div>
-
-      <!-- Fecha de nacimiento y sexo -->
-      <div>
-        <label for="fechanacimiento">Fecha de nacimiento *</label>
-        <input id="fechanacimiento" name="fechanacimiento" type="date" required />
+        <label>Apellido materno</label>
+        <input id="apellidomaterno">
       </div>
 
       <div>
-        <label for="sexo">Sexo *</label>
-        <select id="sexo" name="sexo" required>
-          <option value="" selected disabled>Selecciona una opción</option>
-          <option value="femenino">Femenino</option>
-          <option value="masculino">Masculino</option>
-          <option value="otro">Otro / Prefiero no decir</option>
+        <label>Fecha nacimiento *</label>
+        <input type="date" id="fechanacimiento" required>
+      </div>
+
+      <div>
+        <label>Sexo *</label>
+        <select id="sexo" required>
+          <option value="" disabled selected>Selecciona</option>
+          <option>Masculino</option>
+          <option>Femenino</option>
+          <option>Otro</option>
         </select>
       </div>
 
-      <!-- Correo -->
       <div class="full">
-        <label for="correo">Correo electrónico *</label>
-        <input id="correo" name="correo" type="email" autocomplete="email" inputmode="email" required />
-        <p class="hint">Usa un correo válido (ej. nombre@dominio.com).</p>
-      </div>
-
-      <!-- País y ciudad -->
-      <div>
-        <label for="pais">País *</label>
-        <select id="pais" name="pais" autocomplete="country-name" required>
-          <option value="" selected disabled>Selecciona tu país</option>
-          <option value="MX">México</option>
-          <option value="US">Estados Unidos</option>
-          <option value="ES">España</option>
-          <option value="AR">Argentina</option>
-          <option value="CO">Colombia</option>
-          <option value="CL">Chile</option>
-          <option value="PE">Perú</option>
-          <option value="Otro">Otro</option>
-        </select>
+        <label>Email *</label>
+        <input type="email" id="correo" required>
       </div>
 
       <div>
-        <label for="ciudad">Ciudad *</label>
-        <input id="ciudad" name="ciudad" type="text" autocomplete="address-level2" required />
-      </div>
-
-      <!-- Contraseña -->
-      <div>
-        <label for="contrasena">Contraseña *</label>
-        <input id="contrasena" name="contrasena" type="password" autocomplete="new-password"
-               minlength="8" required />
-        <p class="hint">Mínimo 8 caracteres. Recomendado: mayúsculas, minúsculas, números y símbolos.</p>
+        <label>País *</label>
+        <input id="pais" required>
       </div>
 
       <div>
-        <label for="confirmacion">Confirma tu contraseña *</label>
-        <input id="confirmacion" name="confirmacion" type="password" autocomplete="new-password" required />
-        <p id="error-pass" class="error">Las contraseñas no coinciden.</p>
+        <label>Ciudad *</label>
+        <input id="ciudad" required>
       </div>
 
-      <!-- Acciones -->
-      <div class="full actions" role="group" aria-label="Acciones de formulario">
+      <div>
+        <label>Contraseña *</label>
+        <input type="password" id="contrasena" minlength="8" required>
+      </div>
+
+      <div>
+        <label>Confirmar contraseña *</label>
+        <input type="password" id="confirmacion" required>
+        <p id="error-pass" class="error">Las contraseñas no coinciden</p>
+      </div>
+
+      <div class="full actions">
         <button type="submit" class="primary">Crear cuenta</button>
         <button type="reset" class="secondary">Limpiar</button>
       </div>
     </form>
+
+    <p id="server-error" class="error full"></p>
   </main>
 
   <script>
-    // Validación de coincidencia de contraseñas y del formulario
     const form = document.getElementById('registro');
-    const pass = document.getElementById('contrasena');
-    const confirm = document.getElementById('confirmacion');
+    const nombre = document.getElementById('nombre');
+    const apellidopaterno = document.getElementById('apellidopaterno');
+    const apellidomaterno = document.getElementById('apellidomaterno');
+    const fechanacimiento = document.getElementById('fechanacimiento');
+    const sexo = document.getElementById('sexo');
+    const correo = document.getElementById('correo');
+    const pais = document.getElementById('pais');
+    const ciudad = document.getElementById('ciudad');
+    const contrasena = document.getElementById('contrasena');
+    const confirmacion = document.getElementById('confirmacion');
     const errorPass = document.getElementById('error-pass');
+    const serverError = document.getElementById('server-error');
 
     function checkPasswords() {
-      const match = pass.value === confirm.value;
-      errorPass.style.display = match ? 'none' : 'block';
-      confirm.setCustomValidity(match ? '' : 'Las contraseñas no coinciden');
-      return match;
+      const ok = contrasena.value === confirmacion.value;
+      errorPass.style.display = ok ? 'none' : 'block';
+      confirmacion.setCustomValidity(ok ? '' : 'No coinciden');
+      return ok;
     }
 
-    pass.addEventListener('input', checkPasswords);
-    confirm.addEventListener('input', checkPasswords);
+    contrasena.addEventListener('input', checkPasswords);
+    confirmacion.addEventListener('input', checkPasswords);
 
-    form.addEventListener('submit', (e) => {
-      // Fuerza validación HTML5 + coincidencia de contraseñas
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      serverError.textContent = '';
+
       if (!form.checkValidity() || !checkPasswords()) {
-        e.preventDefault();
         form.reportValidity();
-      } else {
-        // Aquí podrías enviar los datos con fetch() o dejar que el navegador haga el submit
-        alert('Registro enviado correctamente.');
+        return;
+      }
+
+      const datos = {
+        Nombre: nombre.value,
+        Apaterno: apellidopaterno.value,
+        Amaterno: apellidomaterno.value,
+        Fechanac: fechanacimiento.value,
+        Sexo: sexo.value,
+        Email: correo.value,
+        Pais: pais.value,
+        Ciudad: ciudad.value,
+        Contrasena: contrasena.value
+      };
+
+      try {
+        const res = await fetch('http://localhost:4000/registro', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(datos)
+        });
+
+        const json = await res.json();
+
+        if (!res.ok) {
+          serverError.textContent = json.error || 'Error al registrar usuario';
+          serverError.style.display = 'block';
+          return;
+        }
+
+        alert(json.mensaje);
+        form.reset();
+
+      } catch (err) {
+        console.error(err);
+        serverError.textContent = 'Error de conexión con el servidor';
+        serverError.style.display = 'block';
       }
     });
   </script>
