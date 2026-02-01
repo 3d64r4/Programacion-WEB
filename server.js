@@ -1,26 +1,18 @@
 const express = require('express');
 const mysql = require('mysql2');
 const bcrypt = require('bcrypt');
+const cors = require('cors');
 
 const app = express();
 
 /* =========================
    ✅ CONFIGURACIÓN CORS
    ========================= */
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
-  res.header('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
-
-  // Responder preflight inmediatamente
-  if (req.method === 'OPTIONS') {
-    return res.sendStatus(200);
-  }
-
-  next();
-});
-
-// 👉 Manejar preflight requests
+app.use(cors({
+  origin: ['http://127.0.0.1:5500', 'http://localhost:5500'], // permite ambos
+  methods: ['GET','POST'],
+  allowedHeaders: ['Content-Type']
+}));
 
 app.use(express.json());
 
@@ -39,24 +31,10 @@ const db = mysql.createPool({
    ✅ RUTA DE REGISTRO
    ========================= */
 app.post('/registro', async (req, res) => {
-  console.log('📩 Datos recibidos:', req.body);
-
-  const {
-    Nombre,
-    Apaterno,
-    Amaterno,
-    Fechanac,
-    Sexo,
-    Email,
-    Pais,
-    Ciudad,
-    Contrasena
-  } = req.body;
+  const { Nombre, Apaterno, Amaterno, Fechanac, Sexo, Email, Pais, Ciudad, Contrasena } = req.body;
 
   if (!Nombre || !Email || !Contrasena) {
-    return res.status(400).json({
-      mensaje: 'Faltan campos obligatorios'
-    });
+    return res.status(400).json({ mensaje: 'Faltan campos obligatorios' });
   }
 
   try {
@@ -68,40 +46,95 @@ app.post('/registro', async (req, res) => {
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
-    db.query(
-      sql,
-      [
-        Nombre,
-        Apaterno,
-        Amaterno,
-        Fechanac,
-        Sexo,
-        Email,
-        Pais,
-        Ciudad,
-        hash
-      ],
-      (err, result) => {
-        if (err) {
-          console.error('❌ Error al insertar:', err);
-          return res.status(500).json({
-            mensaje: 'Error al registrar usuario'
-          });
-        }
-
-        console.log('✅ Usuario insertado con ID:', result.insertId);
-        res.json({
-          mensaje: 'Usuario registrado correctamente'
-        });
+    db.query(sql, [Nombre, Apaterno, Amaterno, Fechanac, Sexo, Email, Pais, Ciudad, hash], (err, result) => {
+      if (err) {
+        console.error('❌ Error al insertar:', err);
+        return res.status(500).json({ mensaje: 'Error al registrar usuario' });
       }
-    );
+
+      res.json({ mensaje: 'Usuario registrado correctamente', id: result.insertId });
+    });
   } catch (error) {
     console.error('❌ Error general:', error);
-    res.status(500).json({
-      mensaje: 'Error general'
-    });
+    res.status(500).json({ mensaje: 'Error general' });
   }
 });
+
+/* =========================
+   ✅ RUTA DE LOGIN
+   ========================= */
+app.post('/login', (req, res) => {
+  const { Email, Contrasena } = req.body;
+
+  if (!Email || !Contrasena) {
+    return res.status(400).json({ mensaje: 'Faltan campos' });
+  }
+
+  const sql = 'SELECT * FROM usuarios WHERE Email = ? LIMIT 1';
+
+  db.query(sql, [Email], async (err, results) => {
+    if (err) {
+      console.error('❌ Error en la consulta:', err);
+      return res.status(500).json({ mensaje: 'Error en el servidor' });
+    }
+
+    if (results.length === 0) {
+      return res.status(401).json({ mensaje: 'Usuario no encontrado' });
+    }
+
+    const usuario = results[0];
+
+    // Comparar contraseña
+    const match = await bcrypt.compare(Contrasena, usuario.Contrasena);
+
+    if (!match) {
+      return res.status(401).json({ mensaje: 'Contraseña incorrecta' });
+    }
+
+    res.json({
+      mensaje: 'Login exitoso',
+      usuario: {
+        Nombre: usuario.Nombre,
+        Apaterno: usuario.Apaterno,
+        Amaterno: usuario.Amaterno,
+        Email: usuario.Email,
+        Ciudad: usuario.Ciudad,
+        Pais: usuario.Pais
+      }
+    });
+  });
+});
+
+
+/* =========================
+   ✅ RUTA GUARDAR SOLICITUD
+   ========================= */
+app.post('/solicitudes', (req, res) => {
+  const { nombresolicitud, correo, comentario } = req.body;
+
+  if (!nombresolicitud || !correo || !comentario) {
+    return res.status(400).json({ mensaje: 'Faltan datos' });
+  }
+
+  const sql = `
+    INSERT INTO solicitudes (nombresolicitud, correo, comentario)
+    VALUES (?, ?, ?)
+  `;
+
+  db.query(sql, [nombresolicitud, correo, comentario], (err, result) => {
+    if (err) {
+      console.error('❌ Error al guardar solicitud:', err);
+      return res.status(500).json({ mensaje: 'Error al guardar la solicitud' });
+    }
+
+    res.json({
+      mensaje: 'Solicitud guardada correctamente',
+      id: result.insertId
+    });
+  });
+});
+
+
 
 /* =========================
    ✅ ARRANCAR SERVIDOR

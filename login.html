@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página de Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .login-container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+      width: 320px;
+    }
+
+    .login-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .login-container label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    .login-container input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .login-container button {
+      width: 100%;
+      padding: 10px;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .login-container button:hover {
+      background: #0056b3;
+    }
+
+    .login-container p {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .login-container a {
+      color: #007bff;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Iniciar Sesión</h2>
+    <form id="formLogin">
+      <label for="Email">Correo</label>
+      <input type="email" id="Email" name="Email" placeholder="Tu correo" required>
+
+      <label for="Contrasena">Contraseña</label>
+      <input type="password" id="Contrasena" name="Contrasena" placeholder="Tu contraseña" required>
+
+      <button type="submit">Entrar</button>
+    </form>
+    <p>¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a></p>
+  </div>
+
+
+
+  <script>
+  const form = document.getElementById('formLogin');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const Email = document.getElementById('Email').value.trim();
+    const Contrasena = document.getElementById('Contrasena').value.trim();
+
+    if (!Email || !Contrasena) {
+      alert('Completa todos los campos');
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:4000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ Email, Contrasena })
+      });
+
+      const data = await response.json();
+
+      // ❌ Si el backend responde error
+      if (!response.ok) {
+        alert(data.mensaje);
+        return;
+      }
+
+      // ✅ Guardar usuario (opcional)
+      localStorage.setItem('usuario', JSON.stringify(data.usuario));
+
+      // ✅ Mensaje opcional
+      alert(data.mensaje);
+
+      // ✅ REDIRIGIR
+      window.location.href = 'dashboard.html';
+
+    } catch (error) {
+      console.error('Error:', error);
+      alert('No se pudo conectar con el servidor');
+    }
+  });
+</script>
+
+
+
+
+
+</body>
+</html>
