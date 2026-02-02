@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -7,129 +7,158 @@
     <title>N De-XOO</title>
     <link rel="stylesheet" href="style.css">
     <script src="javascript.js" defer></script>
-
 </head>
 
 <body style="margin: 0 auto; padding: 0; box-sizing: border-box;">
+
     <header>
-        <nav>
-            <ul style="display: flex; list-style: none; justify-content: space-around;">
-                <li><a href="#title">Inicio</a></li>
-                <li><a href="#skills">Que son las TE</a></li>
-                <li><a href="registro.html">Sign up</a></li>
-                <li><a href="login.html">login</a></li>
+        <nav style="background: #f8f9fa; padding: 10px 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+            <ul
+                style="display: flex; list-style: none; justify-content: space-around; align-items: center; margin: 0; padding: 0;">
+                <li><a href="#title" style="text-decoration: none; color: #333; font-weight: bold;">Inicio</a></li>
+                <li><a href="#skills" style="text-decoration: none; color: #333; font-weight: bold;">Qué son las TE</a>
+                </li>
+                <li><a href="registro.html" style="text-decoration: none; color: #333; font-weight: bold;">Sign up</a>
+                </li>
+
+                <!-- Formulario de login estilizado -->
+                <li>
+                    <form id="formLogin" style="display: flex; gap: 10px; align-items: center; margin: 0;">
+                        <input type="email" id="Email" name="Email" placeholder="Correo" required
+                            style="padding: 6px 10px; border: 1px solid #ccc; border-radius: 5px; outline: none; transition: border-color 0.3s;">
+                        <input type="password" id="Contrasena" name="Contrasena" placeholder="Contraseña" required
+                            style="padding: 6px 10px; border: 1px solid #ccc; border-radius: 5px; outline: none; transition: border-color 0.3s;">
+                        <button type="submit"
+                            style="padding: 6px 14px; background: #007bff; color: #fff; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; transition: background 0.3s;">
+                            Entrar
+                        </button>
+                    </form>
+                </li>
             </ul>
         </nav>
+
+
         <main style="margin-top: 70px; padding: 20px;">
             <h1 id="title">N De-XOO</h1>
-
-            <h2>Debes saber cuando ya lidiaste mucho tiempo a una persona dificil (N De-XOO) y que si los hay </h2>
+            <h2>
+                Debes saber cuando ya lidiaste mucho tiempo con una persona difícil (N De-XOO)
+            </h2>
         </main>
-
 
         <div id="home">
             <div id="home1">
-                <h3 class="divhome">¿Para qué es esta herramienta?</h3>
-                <article>
-                    <h3 class="divhome" id="herramienta">
-                        Esta herramienta no solo te ayuda a externalizar sino también a cuantificar
-                        el impacto, lo que facilita tomar decisiones más objetivas sobre si necesitas
-                        cambiar tu relación con esa persona, poner límites o replantear tu entorno.
-                    </h3>
-                </article>
+                <h3>¿Para qué es esta herramienta?</h3>
+                <p>
+                    Esta herramienta no solo te ayuda a externalizar sino también a cuantificar
+                    el impacto, facilitando decisiones más objetivas.
+                </p>
             </div>
 
             <div id="home2">
-                <article>
-                    <h3 class="divhome">
-                        Este pendejómetro te ayuda a llevar el registro de las veces que una persona te causó un
-                        problema
-                    </h3>
-                    <h3 class="divhome">
-                        Así podrás saber cuándo ya es mucho y cuándo es hora de tomar una decisión
-                    </h3>
-                </article>
+                <h3>Como te ayudamos </h3>
+                <p>
+                    Este pendejómetro te ayuda a llevar el registro de las veces que una persona te causó un problema.
+                </p>
+                <p>
+                    Así sabrás cuándo ya es mucho y cuándo tomar una decisión.
+                </p>
             </div>
         </div>
 
+        <a href="tecnicas.pdf" download="tecnicas.pdf">
+            Qué son las técnicas de exteriorización
+        </a>
+    </header>
 
+    <footer>
+        <form id="formulario">
+            <h2>¿Necesitas alguna otra opción? Solicítala</h2>
+            <br>
 
+            <label for="nombre">Nombre</label><br>
+            <input class="inputs" id="nombre" type="text" name="nombre" placeholder="Edgar A" required
+                pattern="[A-Za-zÑñ ]+">
+            <br>
 
-        <a href="tecnicas.pdf" download="tecnicas.pdf">Que son la tecnicas de
-            exteriorizacion</a>
+            <label for="correo">Correo</label><br>
+            <input class="inputs" id="correo" type="email" name="correo" placeholder="ejemplo@hotmail.com" required>
+            <br>
 
+            <label for="comentarios">Comentarios</label><br>
+            <textarea class="inputs" id="comentarios" name="comentarios" placeholder="Escribe tus comentarios aquí..."
+                required></textarea>
+            <br><br>
 
+            <input id="inputbuttom" type="submit" value="Enviar">
+        </form>
+    </footer>
 
+    <!-- JS SOLICITUDES -->
+    <script>
+        const formSolicitud = document.getElementById('formulario');
 
+        formSolicitud.addEventListener('submit', async (e) => {
+            e.preventDefault();
 
-        <footer>
-            <form id="formulario">
-                <h2>¿Necesitas alguna otra opción? Solicítala</h2>
-                <br>
+            const nombresolicitud = nombre.value.trim();
+            const correo = document.getElementById('correo').value.trim();
+            const comentario = document.getElementById('comentarios').value.trim();
 
-                <label for="nombre">Nombre</label><br>
-                <input class="inputs" id="nombre" type="text" name="nombre" placeholder="Edgar A" required
-                    pattern="[A-Za-zÑñ ]+">
-                <br>
+            if (!nombresolicitud || !correo || !comentario) {
+                alert('Completa todos los campos');
+                return;
+            }
 
-                <label for="correo">Correo</label><br>
-                <input class="inputs" id="correo" type="email" name="correo" placeholder="ejemplo@hotmail.com" required>
-                <br>
-
-                <label for="comentarios">Comentarios</label><br>
-                <textarea class="inputs" id="comentarios" name="comentarios"
-                    placeholder="Escribe tus comentarios aquí..." required></textarea>
-                <br><br>
-
-                <input id="inputbuttom" type="submit" value="Enviar">
-            </form>
-        </footer>
-
-        <script>
-            const form = document.getElementById('formulario');
-
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-
-                const nombresolicitud = document.getElementById('nombre').value.trim();
-                const correo = document.getElementById('correo').value.trim();
-                const comentario = document.getElementById('comentarios').value.trim();
-
-                if (!nombresolicitud || !correo || !comentario) {
-                    alert('Completa todos los campos');
-                    return;
-                }
-
-                try {
-                    const response = await fetch('http://localhost:4000/solicitudes', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            nombresolicitud,
-                            correo,
-                            comentario
-                        })
-                    });
-
-                    const data = await response.json();
-
-                    if (!response.ok) {
-                        alert(data.mensaje);
-                        return;
-                    }
-
-                    alert('Solicitud enviada correctamente');
-                    form.reset();
-
-                } catch (error) {
-                    console.error(error);
-                    alert('Error al enviar la solicitud');
-                }
+            const response = await fetch('http://localhost:4000/solicitudes', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ nombresolicitud, correo, comentario })
             });
-        </script>
 
+            const data = await response.json();
+
+            if (!response.ok) {
+                alert(data.mensaje);
+                return;
+            }
+
+            alert('Solicitud enviada correctamente');
+            formSolicitud.reset();
+        });
+    </script>
+
+    <!-- JS LOGIN -->
+    <script>
+        const formLogin = document.getElementById('formLogin');
+
+        formLogin.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const Email = document.getElementById('Email').value.trim();
+            const Contrasena = document.getElementById('Contrasena').value.trim();
+
+            if (!Email || !Contrasena) {
+                alert('Completa todos los campos');
+                return;
+            }
+
+            const response = await fetch('http://localhost:4000/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ Email, Contrasena })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                alert(data.mensaje);
+                return;
+            }
+
+            localStorage.setItem('usuario', JSON.stringify(data.usuario));
+            window.location.href = 'dashboard.html';
+        });
+    </script>
 
 </body>
 

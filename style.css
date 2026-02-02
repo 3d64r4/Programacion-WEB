@@ -1,13 +1,13 @@
 body {
   margin: 0;
   padding: 0;  
-  color: rgb(45, 89, 151);
+  color: rgb(35, 52, 78);
   font-weight: 200;
 }
 
 a{
     text-decoration: none;
-    color: rgb(44, 122, 73);
+    color: rgb(113, 44, 122);
     font-weight: bold;
     font-size: 1.5rem;
     transition: trnsform 0.3s ease, color 0.3s ease-in-out;
@@ -15,7 +15,7 @@ a{
     }
 
     a:hover {
-      color: rgb(92, 77, 160);
+      color: rgb(82, 82, 117);
       transform: scale(1.1);
     }
 
@@ -24,7 +24,7 @@ nav {
   width: 100%;
   height: 60px;
   position: fixed;
-  background-color: rgb(192, 211, 192);
+  background-color: rgb(105, 129, 226);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   
   ul {
