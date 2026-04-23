@@ -128,37 +128,44 @@
     </script>
 
     <!-- JS LOGIN -->
-    <script>
-        const formLogin = document.getElementById('formLogin');
+   <script>
+    const formSolicitud = document.getElementById('formulario');
 
-        formLogin.addEventListener('submit', async (e) => {
-            e.preventDefault();
+    formSolicitud.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-            const Email = document.getElementById('Email').value.trim();
-            const Contrasena = document.getElementById('Contrasena').value.trim();
+        // Obtener los valores correctamente usando getElementById
+        const nombresolicitud = document.getElementById('nombre').value.trim();
+        const correo = document.getElementById('correo').value.trim();
+        const comentario = document.getElementById('comentarios').value.trim();
 
-            if (!Email || !Contrasena) {
-                alert('Completa todos los campos');
-                return;
-            }
+        if (!nombresolicitud || !correo || !comentario) {
+            alert('Por favor, completa todos los campos');
+            return;
+        }
 
-            const response = await fetch('http://localhost:4000/login', {
+        try {
+            const response = await fetch('http://localhost:4000/solicitudes', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ Email, Contrasena })
+                body: JSON.stringify({ nombresolicitud, correo, comentario })
             });
 
             const data = await response.json();
 
             if (!response.ok) {
-                alert(data.mensaje);
+                alert('Error: ' + (data.mensaje || 'No se pudo enviar'));
                 return;
             }
 
-            localStorage.setItem('usuario', JSON.stringify(data.usuario));
-            window.location.href = 'dashboard.html';
-        });
-    </script>
+            alert('✅ Solicitud enviada correctamente');
+            formSolicitud.reset();
+        } catch (error) {
+            console.error('Error de conexión:', error);
+            alert('Error de conexión con el servidor. Asegúrate de que server.js esté corriendo.');
+        }
+    });
+</script>
 
 </body>
 

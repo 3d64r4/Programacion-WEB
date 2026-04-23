@@ -128,75 +128,73 @@
   </main>
 
   <script>
-    const form = document.getElementById('registro');
-    const nombre = document.getElementById('nombre');
-    const apellidopaterno = document.getElementById('apellidopaterno');
-    const apellidomaterno = document.getElementById('apellidomaterno');
-    const fechanacimiento = document.getElementById('fechanacimiento');
-    const sexo = document.getElementById('sexo');
-    const correo = document.getElementById('correo');
-    const pais = document.getElementById('pais');
-    const ciudad = document.getElementById('ciudad');
-    const contrasena = document.getElementById('contrasena');
-    const confirmacion = document.getElementById('confirmacion');
-    const errorPass = document.getElementById('error-pass');
-    const serverError = document.getElementById('server-error');
+  const form = document.getElementById('registro');
+  const nombre = document.getElementById('nombre');
+  const apellidopaterno = document.getElementById('apellidopaterno');
+  const apellidomaterno = document.getElementById('apellidomaterno');
+  const fechanacimiento = document.getElementById('fechanacimiento');
+  const sexo = document.getElementById('sexo');
+  const correo = document.getElementById('correo');
+  const pais = document.getElementById('pais');
+  const ciudad = document.getElementById('ciudad');
+  const contrasena = document.getElementById('contrasena');
+  const confirmacion = document.getElementById('confirmacion');
+  const errorPass = document.getElementById('error-pass');
+  const serverError = document.getElementById('server-error');
 
-    function checkPasswords() {
-      const ok = contrasena.value === confirmacion.value;
-      errorPass.style.display = ok ? 'none' : 'block';
-      confirmacion.setCustomValidity(ok ? '' : 'No coinciden');
-      return ok;
+  function checkPasswords() {
+    const ok = contrasena.value === confirmacion.value;
+    errorPass.style.display = ok ? 'none' : 'block';
+    return ok;
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    serverError.style.display = 'none'; // Limpiar errores previos
+
+    if (!form.checkValidity() || !checkPasswords()) {
+      form.reportValidity();
+      return;
     }
 
-    contrasena.addEventListener('input', checkPasswords);
-    confirmacion.addEventListener('input', checkPasswords);
+    // Los nombres de estas propiedades deben coincidir con tu server.js
+    const datos = {
+      Nombre: nombre.value,
+      Apaterno: apellidopaterno.value,
+      Amaterno: apellidomaterno.value,
+      Fechanac: fechanacimiento.value,
+      Sexo: sexo.value,
+      Email: correo.value,
+      Pais: pais.value,
+      Ciudad: ciudad.value,
+      Contrasena: contrasena.value
+    };
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      serverError.textContent = '';
+    try {
+      const res = await fetch('http://localhost:4000/registro', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(datos)
+      });
 
-      if (!form.checkValidity() || !checkPasswords()) {
-        form.reportValidity();
+      const json = await res.json();
+
+      if (!res.ok) {
+        // Tu server.js envía 'mensaje', no 'error'
+        serverError.textContent = json.mensaje || 'Error al registrar';
+        serverError.style.display = 'block';
         return;
       }
 
-      const datos = {
-        Nombre: nombre.value,
-        Apaterno: apellidopaterno.value,
-        Amaterno: apellidomaterno.value,
-        Fechanac: fechanacimiento.value,
-        Sexo: sexo.value,
-        Email: correo.value,
-        Pais: pais.value,
-        Ciudad: ciudad.value,
-        Contrasena: contrasena.value
-      };
+      alert('¡Éxito! ' + json.mensaje);
+      form.reset();
 
-      try {
-        const res = await fetch('http://localhost:4000/registro', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(datos)
-        });
-
-        const json = await res.json();
-
-        if (!res.ok) {
-          serverError.textContent = json.error || 'Error al registrar usuario';
-          serverError.style.display = 'block';
-          return;
-        }
-
-        alert(json.mensaje);
-        form.reset();
-
-      } catch (err) {
-        console.error(err);
-        serverError.textContent = 'Error de conexión con el servidor';
-        serverError.style.display = 'block';
-      }
-    });
-  </script>
+    } catch (err) {
+      console.error('Error de fetch:', err);
+      serverError.textContent = 'No se pudo conectar con el servidor. ¿Está encendido?';
+      serverError.style.display = 'block';
+    }
+  });
+</script>
 </body>
 </html>
