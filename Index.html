@@ -65,6 +65,101 @@
             </div>
         </div>
 
+<!-- Panel Dashboard oculto -->
+<div id="dashboard" style="display: none; padding: 20px; background: #f0f0f0;">
+    <h2>Bienvenido al Dashboard</h2>
+    <h3>Elige la opción</h3>
+    <ul>
+        <div id="opciones">
+            <figure>
+                 <li class="divhome item1">Registra al N De-XOO</li>
+                 <img id="imgNdexo" src="NDEXOO.png" alt="logo html" width="300px" height="300px" style="cursor:pointer;">
+            </figure>
+
+            <figure>
+                <li class="divhome item1">Agrega gotas al vaso</li>
+                <img id="imgVaso" src="gota.jpg" alt="logo css" width="300px" height="300px" style="cursor:pointer;">
+            </figure>
+
+
+            <figure>
+                <li class="divhome item1">Ve cómo va el vaso</li>
+                <img src="vaso.jpg" alt="logo javascript" width="300px" height="300px">
+                <figcaption>¿Necesitas alguna otra opción?</figcaption>
+            </figure>
+            
+            <!-- Modal oculto para vasodeagua -->
+<div id="modalVaso" class="modal">
+  <div class="modal-contenido">
+    <span id="cerrarModalVaso" class="cerrar">&times;</span>
+    <h2>Registrar Gota en el Vaso</h2>
+    <form id="formVaso">
+      <label>Fecha:</label>
+      <input type="date" id="fecha" name="fecha" required><br>
+
+      <label>Hora:</label>
+      <input type="time" id="hora" name="hora" required><br>
+
+      <label>Lugar:</label>
+      <input type="text" id="lugar" name="lugar"><br>
+
+      <label>Alias del N De-XOO:</label>
+      <input type="number" id="aliasdelndexo" name="aliasdelndexo" required><br>
+
+      <label>Problema causado:</label>
+      <textarea id="problema_causado" name="problema_causado"></textarea><br>
+
+      <label>Medio del problema:</label>
+      <input type="text" id="medio_problema" name="medio_problema"><br>
+
+      <label>Resultados:</label>
+      <textarea id="resultados" name="resultados"></textarea><br>
+
+      <label>Cómo me sentí:</label>
+      <textarea id="como_me_senti" name="como_me_senti"></textarea><br><br>
+
+      <button type="submit">Guardar</button>
+    </form>
+  </div>
+</div>
+
+
+
+            <!-- Modal oculto -->
+<div id="modalNdexo" class="modal">
+  <div class="modal-contenido">
+    <span id="cerrarModal" class="cerrar">&times;</span>
+    <h2>Registrar N De-XOO</h2>
+    <form id="formNdexo">
+      <label>Alias:</label>
+      <input type="text" id="Alias" name="Alias" required><br>
+
+      <label>Lugar de interacción:</label>
+      <input type="text" id="lugar_interaccion" name="lugar_interaccion"><br>
+
+      <label>Actitud:</label>
+      <input type="text" id="actitud" name="actitud"><br>
+
+      <label>Relación:</label>
+      <input type="text" id="relacion" name="relacion"><br>
+
+      <label>Fecha de inicio:</label>
+      <input type="date" id="fecha_inicio" name="fecha_inicio"><br>
+
+      <label>Nivel de estrés:</label>
+      <input type="number" id="nivel_estress" name="nivel_estress" min="0" max="10"><br><br>
+
+      <button type="submit">Guardar</button>
+    </form>
+  </div>
+</div>
+
+        </div>
+    </ul>
+</div>
+
+
+
         <a href="tecnicas.pdf" download="tecnicas.pdf">
             Qué son las técnicas de exteriorización
         </a>
@@ -129,42 +224,122 @@
 
     <!-- JS LOGIN -->
    <script>
-    const formSolicitud = document.getElementById('formulario');
+    const formLogin = document.getElementById('formLogin');
 
-    formSolicitud.addEventListener('submit', async (e) => {
-        e.preventDefault();
+formLogin.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-        // Obtener los valores correctamente usando getElementById
-        const nombresolicitud = document.getElementById('nombre').value.trim();
-        const correo = document.getElementById('correo').value.trim();
-        const comentario = document.getElementById('comentarios').value.trim();
+    const Email = document.getElementById('Email').value.trim();
+    const Contrasena = document.getElementById('Contrasena').value.trim();
 
-        if (!nombresolicitud || !correo || !comentario) {
-            alert('Por favor, completa todos los campos');
-            return;
-        }
+    if (!Email || !Contrasena) {
+        alert('Completa todos los campos');
+        return;
+    }
 
-        try {
-            const response = await fetch('http://localhost:4000/solicitudes', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ nombresolicitud, correo, comentario })
-            });
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                alert('Error: ' + (data.mensaje || 'No se pudo enviar'));
-                return;
-            }
-
-            alert('✅ Solicitud enviada correctamente');
-            formSolicitud.reset();
-        } catch (error) {
-            console.error('Error de conexión:', error);
-            alert('Error de conexión con el servidor. Asegúrate de que server.js esté corriendo.');
-        }
+    const response = await fetch('http://localhost:4000/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ Email, Contrasena })
     });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        alert(data.mensaje);
+        return;
+    }
+
+    // Guardar usuario en localStorage
+    localStorage.setItem('usuario', JSON.stringify(data.usuario));
+
+    // Mostrar el dashboard y ocultar el contenido inicial
+    document.getElementById('dashboard').style.display = 'block';
+    document.getElementById('home').style.display = 'none';
+    document.getElementById('title').style.display = 'none';
+});
+
+</script>
+
+<script>
+// Abrir y cerrar modal
+const modal = document.getElementById('modalNdexo');
+const imgNdexo = document.getElementById('imgNdexo'); // <- aquí usamos la imagen
+const btnCerrar = document.getElementById('cerrarModal');
+
+// Abrir modal al hacer click en la imagen
+imgNdexo.onclick = () => modal.style.display = 'block';
+
+// Cerrar modal al hacer click en la X
+btnCerrar.onclick = () => modal.style.display = 'none';
+
+// Cerrar modal al hacer click fuera del contenido
+window.onclick = (e) => { if (e.target == modal) modal.style.display = 'none'; };
+
+// Enviar datos al backend
+const formNdexo = document.getElementById('formNdexo');
+formNdexo.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const datos = {
+    Alias: document.getElementById('Alias').value.trim(),
+    lugar_interaccion: document.getElementById('lugar_interaccion').value.trim(),
+    actitud: document.getElementById('actitud').value.trim(),
+    relacion: document.getElementById('relacion').value.trim(),
+    fecha_inicio: document.getElementById('fecha_inicio').value,
+    nivel_estress: document.getElementById('nivel_estress').value
+  };
+
+  const response = await fetch('http://localhost:4000/ndexo', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(datos)
+  });
+
+  const data = await response.json();
+  alert(data.mensaje);
+  modal.style.display = 'none';
+  formNdexo.reset();
+});
+</script>
+
+<script>
+// Abrir y cerrar modal del vaso
+const modalVaso = document.getElementById('modalVaso');
+const imgVaso = document.getElementById('imgVaso');
+const btnCerrarVaso = document.getElementById('cerrarModalVaso');
+
+imgVaso.onclick = () => modalVaso.style.display = 'block';
+btnCerrarVaso.onclick = () => modalVaso.style.display = 'none';
+window.onclick = (e) => { if (e.target == modalVaso) modalVaso.style.display = 'none'; };
+
+// Enviar datos al backend
+const formVaso = document.getElementById('formVaso');
+formVaso.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const datos = {
+    fecha: document.getElementById('fecha').value,
+    hora: document.getElementById('hora').value,
+    lugar: document.getElementById('lugar').value.trim(),
+    aliasdelndexo: document.getElementById('aliasdelndexo').value,
+    problema_causado: document.getElementById('problema_causado').value.trim(),
+    medio_problema: document.getElementById('medio_problema').value.trim(),
+    resultados: document.getElementById('resultados').value.trim(),
+    como_me_senti: document.getElementById('como_me_senti').value.trim()
+  };
+
+  const response = await fetch('http://localhost:4000/vasodeagua', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(datos)
+  });
+
+  const data = await response.json();
+  alert(data.mensaje);
+  modalVaso.style.display = 'none';
+  formVaso.reset();
+});
 </script>
 
 </body>

@@ -71,6 +71,36 @@ const inicializarTablas = () => {
     );
   `;
 
+  const tablaNdexo = `
+    CREATE TABLE IF NOT EXISTS ndexo (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      Alias VARCHAR(150) NOT NULL UNIQUE,
+      lugar_interaccion VARCHAR(150),
+      actitud VARCHAR(150),
+      relacion VARCHAR(150),
+      fecha_inicio DATE,
+      nivel_estress INT,
+      fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+  `;
+
+  const tablaVasodeagua = `
+    CREATE TABLE IF NOT EXISTS vasodeagua (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      fecha DATE NOT NULL,
+      hora TIME NOT NULL,
+      lugar VARCHAR(150),
+      aliasdelndexo INT NOT NULL,
+      problema_causado TEXT,
+      medio_problema VARCHAR(150),
+      resultados TEXT,
+      como_me_senti TEXT,
+      fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      CONSTRAINT fk_ndexo FOREIGN KEY (aliasdelndexo) REFERENCES ndexo(id)
+        ON UPDATE CASCADE ON DELETE CASCADE
+    );
+  `;
+
   db.query(tablaUsuarios, (err) => {
     if (err) console.error('❌ Error creando tabla usuarios:', err);
     else console.log('✅ Tabla "usuarios" lista.');
@@ -80,9 +110,21 @@ const inicializarTablas = () => {
     if (err) console.error('❌ Error creando tabla solicitudes:', err);
     else console.log('✅ Tabla "solicitudes" lista.');
   });
+
+  db.query(tablaNdexo, (err) => {
+    if (err) console.error('❌ Error creando tabla ndexo:', err);
+    else console.log('✅ Tabla "ndexo" lista.');
+  });
+
+  db.query(tablaVasodeagua, (err) => {
+    if (err) console.error('❌ Error creando tabla vasodeagua:', err);
+    else console.log('✅ Tabla "vasodeagua" lista.');
+  });
 };
 
 inicializarTablas();
+
+
 
 /* ==========================================
    ✅ RUTAS
@@ -144,4 +186,30 @@ app.post('/solicitudes', (req, res) => {
    ========================================== */
 app.listen(4000, () => {
   console.log('🚀 Servidor corriendo en http://localhost:4000');
+});
+
+/* ==========================================
+   🚀 REGISTRAR NDEXO
+   ========================================== */
+   app.post('/ndexo', (req, res) => {
+  const { Alias, lugar_interaccion, actitud, relacion, fecha_inicio, nivel_estress } = req.body;
+  const sql = `INSERT INTO ndexo (Alias, lugar_interaccion, actitud, relacion, fecha_inicio, nivel_estress) VALUES (?, ?, ?, ?, ?, ?)`;
+
+  db.query(sql, [Alias, lugar_interaccion, actitud, relacion, fecha_inicio, nivel_estress], (err, result) => {
+    if (err) return res.status(500).json({ mensaje: 'Error al guardar N De-XOO' });
+    res.json({ mensaje: 'N De-XOO registrado correctamente', id: result.insertId });
+  });
+});
+
+/* ==========================================
+   🚀 AGREGARLE GOTAS AL VASO
+   ========================================== */
+   app.post('/vasodeagua', (req, res) => {
+  const { fecha, hora, lugar, aliasdelndexo, problema_causado, medio_problema, resultados, como_me_senti } = req.body;
+  const sql = `INSERT INTO vasodeagua (fecha, hora, lugar, aliasdelndexo, problema_causado, medio_problema, resultados, como_me_senti) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+
+  db.query(sql, [fecha, hora, lugar, aliasdelndexo, problema_causado, medio_problema, resultados, como_me_senti], (err, result) => {
+    if (err) return res.status(500).json({ mensaje: 'Error al guardar registro en vasodeagua' });
+    res.json({ mensaje: 'Registro agregado al vaso correctamente', id: result.insertId });
+  });
 });
