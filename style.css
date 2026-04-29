@@ -267,27 +267,114 @@ img:hover{
   animation: none;
 }
 
+
+
+/* 1. ESTADO INICIAL: Esto oculta los modales por defecto */
 .modal {
-  display: none; 
-  position: fixed; 
-  z-index: 1000; 
-  left: 0; 
-  top: 0; 
-  width: 100%; 
-  height: 100%; 
-  background-color: rgba(0,0,0,0.5);
+    display: none;          /* HACE QUE SEA INVISIBLE */
+    position: fixed;        /* LO SACA DEL FLUJO Y LO PONE SOBRE TODO */
+    z-index: 9999;          /* ASEGURA QUE ESTÉ POR ENCIMA DE IMÁGENES Y BOTONES */
+    left: 0;
+    top: 0;
+    width: 100%;            /* OCUPA TODO EL ANCHO DE LA PANTALLA */
+    height: 100%;           /* OCUPA TODO EL ALTO DE LA PANTALLA */
+    background-color: rgba(0, 0, 0, 0.7); /* FONDO OSCURO SEMITRANSPARENTE */
+    backdrop-filter: blur(4px);           /* EFECTO DE DESENFOQUE AL FONDO */
+    overflow-y: auto;       /* SI EL FORMULARIO ES LARGO, PERMITE HACER SCROLL */
 }
 
+/* 2. EL CONTENEDOR BLANCO (LA CAJA) */
 .modal-contenido {
-  background: #fff;
-  margin: 10% auto;
-  padding: 20px;
-  border-radius: 8px;
-  width: 400px;
+    background-color: #ffffff !important;
+    margin: 5% auto;        /* LO CENTRA Y LE DA ESPACIO ARRIBA */
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 480px;       /* ANCHO MÁXIMO PARA QUE NO SE VEA MUY GRANDE */
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    position: relative;
+    color: #333;            /* TEXTO OSCURO */
 }
 
-.cerrar {
-  float: right;
-  font-size: 24px;
+/* 3. DISEÑO DE LOS RENGLONES (PARA QUE NO SE AMONTONE) */
+#formNdexo, #formVaso {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;              /* ESPACIO GENEROSO ENTRE CADA CAMPO */
+    margin-top: 20px;
+}
+
+/* ESTILO DE CADA GRUPO (LABEL + INPUT) */
+#formVaso div, .field-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+#formVaso label, .field-group label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+/* INPUTS VISIBLES CON BORDES CLAROS */
+#formVaso input, 
+#formVaso textarea, 
+#formNdexo input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #333 !important; /* BORDE OSCURO PARA QUE SEA VISIBLE */
+    border-radius: 8px;
+    background: #fff !important;
+    color: #000;
+    font-size: 1rem;
+    box-sizing: border-box; /* EVITA QUE SE SALGA DEL MARGEN */
+}
+
+#formVaso input:focus, #formNdexo input:focus {
+    border-color: #2563eb !important;
+    outline: none;
+}
+
+/* 4. BOTONES */
+.actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.btn-save, .btn-cancel {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
   cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Botón Guardar */
+.btn-save {
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  color: white;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.btn-save:hover {
+  background: linear-gradient(135deg, #1e40af, #2563eb);
+  transform: translateY(-2px);
+}
+
+/* Botón Cancelar */
+.btn-cancel {
+  background: #f3f4f6;
+  color: #374151;
+  border: 2px solid #d1d5db;
+}
+
+.btn-cancel:hover {
+  background: #e5e7eb;
+  color: #111827;
+  transform: translateY(-2px);
 }

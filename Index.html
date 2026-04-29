@@ -89,74 +89,113 @@
             </figure>
             
             <!-- Modal oculto para vasodeagua -->
+
 <div id="modalVaso" class="modal">
   <div class="modal-contenido">
-    <span id="cerrarModalVaso" class="cerrar">&times;</span>
-    <h2>Registrar Gota en el Vaso</h2>
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+       <h2 style="margin:0;">Registrar Gota</h2>
+       <span id="cerrarModalVaso" class="cerrar" style="cursor:pointer; font-size:32px; color:#aaa;">&times;</span>
+    </div>
+    
     <form id="formVaso">
-      <label>Fecha:</label>
-      <input type="date" id="fecha" name="fecha" required><br>
+      <div>
+        <label>Fecha de la incidencia:</label>
+        <input type="date" id="fecha" name="fecha" required>
+      </div>
+      <div>
+        <label>Hora aproximada:</label>
+        <input type="time" id="hora" name="hora" required>
+      </div>
+      <div>
+        <label>Lugar:</label>
+        <input type="text" id="lugar" name="lugar" placeholder="Ej. Oficina, Casa...">
+      </div>
+      <div>
+        <label>Alias del N-DeXOO (ID):</label>
+        <input type="number" id="aliasdelndexo" name="aliasdelndexo" required placeholder="ID del registro en ndexo">
+      </div>
+      <div>
+        <label>Relato del problema:</label>
+        <textarea id="problema_causado" name="problema_causado" rows="4" placeholder="¿Qué pasó esta vez?"></textarea>
+      </div>
+      <div>
+        <label>Medio del problema:</label>
+        <input type="text" id="medio_problema" name="medio_problema" placeholder="Ej. Conversación, Mensaje, Reunión...">
+      </div>
+      <div>
+        <label>Resultados:</label>
+        <textarea id="resultados" name="resultados" rows="3" placeholder="¿Qué consecuencias hubo?"></textarea>
+      </div>
+      <div>
+        <label>Cómo me sentí:</label>
+        <textarea id="como_me_senti" name="como_me_senti" rows="3" placeholder="Describe tus emociones"></textarea>
+      </div>
+            
+            <button type="submit" class="btn-save">💾 Guardar Registro</button>
+            <button type="button" class="btn-cancel" id="cancelarBtnVaso">✖ Cancelar</button>
 
-      <label>Hora:</label>
-      <input type="time" id="hora" name="hora" required><br>
-
-      <label>Lugar:</label>
-      <input type="text" id="lugar" name="lugar"><br>
-
-      <label>Alias del N De-XOO:</label>
-      <input type="number" id="aliasdelndexo" name="aliasdelndexo" required><br>
-
-      <label>Problema causado:</label>
-      <textarea id="problema_causado" name="problema_causado"></textarea><br>
-
-      <label>Medio del problema:</label>
-      <input type="text" id="medio_problema" name="medio_problema"><br>
-
-      <label>Resultados:</label>
-      <textarea id="resultados" name="resultados"></textarea><br>
-
-      <label>Cómo me sentí:</label>
-      <textarea id="como_me_senti" name="como_me_senti"></textarea><br><br>
-
-      <button type="submit">Guardar</button>
+             <!--  <button type="submit" class="btn-save" style="background:#2563eb; color:white; padding:15px; border:none; border-radius:10px; cursor:pointer; font-weight:bold;">
+        Guardar en el Vaso -->
     </form>
   </div>
 </div>
 
 
 
-            <!-- Modal oculto -->
+            <!-- Modal oculto de registro de N De-XOO -->
+
+
 <div id="modalNdexo" class="modal">
   <div class="modal-contenido">
-    <span id="cerrarModal" class="cerrar">&times;</span>
-    <h2>Registrar N De-XOO</h2>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+      <h2 style="margin: 0; font-size: 1.5rem;">Registrar N De-XOO</h2>
+      <span id="cerrarModal" style="cursor:pointer; font-size: 30px; color: #999;">&times;</span>
+    </div>
+
     <form id="formNdexo">
-      <label>Alias:</label>
-      <input type="text" id="Alias" name="Alias" required><br>
+      <div class="field-group">
+        <label>Alias del individuo *</label>
+        <input type="text" id="Alias" name="Alias" required placeholder="Escribe el nombre o apodo">
+      </div>
 
-      <label>Lugar de interacción:</label>
-      <input type="text" id="lugar_interaccion" name="lugar_interaccion"><br>
+      <div class="field-group">
+        <label>Lugar del encuentro</label>
+        <input type="text" id="lugar_interaccion" name="lugar_interaccion" placeholder="Ej. Oficina, Calle...">
+      </div>
 
-      <label>Actitud:</label>
-      <input type="text" id="actitud" name="actitud"><br>
+      <div class="field-group">
+        <label>Actitud</label>
+        <input type="text" id="actitud" name="actitud" placeholder="Ej. Amistosa, Hostil...">
+      </div>
 
-      <label>Relación:</label>
-      <input type="text" id="relacion" name="relacion"><br>
+      <div class="field-group">
+        <label>Relación / Vínculo</label>
+        <input type="text" id="relacion" name="relacion" placeholder="Ej. Compañero, Familiar...">
+      </div>
 
-      <label>Fecha de inicio:</label>
-      <input type="date" id="fecha_inicio" name="fecha_inicio"><br>
+      <div class="field-group">
+        <label>Fecha de inicio</label>
+        <input type="date" id="fecha_inicio" name="fecha_inicio">
+      </div>
 
-      <label>Nivel de estrés:</label>
-      <input type="number" id="nivel_estress" name="nivel_estress" min="0" max="10"><br><br>
+      <div class="field-group">
+        <label>Nivel de estrés generado (0-10)</label>
+        <input type="range" id="nivel_estress" name="nivel_estress" min="0" max="10" step="1" 
+               style="width: 100%; margin-top: 10px;"
+               oninput="this.nextElementSibling.value = this.value">
+        <output style="text-align: center; font-weight: bold; font-size: 1.2rem; display: block; color: #2563eb;">5</output>
+      </div>
 
-      <button type="submit">Guardar</button>
+      <div class="actions">
+            <button type="submit" class="btn-save">💾 Guardar Registro</button>
+            <button type="button" class="btn-cancel" id="cancelarBtnNdexo">✖ Cancelar</button>
+      </div>
     </form>
   </div>
 </div>
 
-        </div>
-    </ul>
-</div>
+
+  
 
 
 
@@ -262,85 +301,44 @@ formLogin.addEventListener('submit', async (e) => {
 </script>
 
 <script>
-// Abrir y cerrar modal
-const modal = document.getElementById('modalNdexo');
-const imgNdexo = document.getElementById('imgNdexo'); // <- aquí usamos la imagen
-const btnCerrar = document.getElementById('cerrarModal');
+  // Selección de elementos
+  const modalNdexo = document.getElementById('modalNdexo');
+  const modalVaso = document.getElementById('modalVaso');
+  
+  const imgNdexo = document.getElementById('imgNdexo');
+  const imgVaso = document.getElementById('imgVaso');
 
-// Abrir modal al hacer click en la imagen
-imgNdexo.onclick = () => modal.style.display = 'block';
+  const btnCerrarNdexo = document.getElementById('cerrarModal');
+  const btnCerrarVaso = document.getElementById('cerrarModalVaso');
+  const btnCancelarNdexo = document.getElementById('cancelarBtnNdexo');
+  const btnCancelarVaso = document.getElementById('cancelarBtnVaso');
 
-// Cerrar modal al hacer click en la X
-btnCerrar.onclick = () => modal.style.display = 'none';
+  // --- ABRIR ---
+  imgNdexo.onclick = function() { modalNdexo.style.display = "block"; }
+  imgVaso.onclick = function() { modalVaso.style.display = "block"; }
 
-// Cerrar modal al hacer click fuera del contenido
-window.onclick = (e) => { if (e.target == modal) modal.style.display = 'none'; };
+  // --- CERRAR ---
+  btnCerrarNdexo.onclick = function() { modalNdexo.style.display = "none"; }
+  btnCerrarVaso.onclick = function() { modalVaso.style.display = "none"; }
+  
+  if(btnCancelarNdexo) {
+    btnCancelarNdexo.onclick = function() { modalNdexo.style.display = "none"; }
+  }
+  if(btnCancelarVaso) {
+    btnCancelarVaso.onclick = function() { modalVaso.style.display = "none"; }
+  }
 
-// Enviar datos al backend
-const formNdexo = document.getElementById('formNdexo');
-formNdexo.addEventListener('submit', async (e) => {
-  e.preventDefault();
-
-  const datos = {
-    Alias: document.getElementById('Alias').value.trim(),
-    lugar_interaccion: document.getElementById('lugar_interaccion').value.trim(),
-    actitud: document.getElementById('actitud').value.trim(),
-    relacion: document.getElementById('relacion').value.trim(),
-    fecha_inicio: document.getElementById('fecha_inicio').value,
-    nivel_estress: document.getElementById('nivel_estress').value
-  };
-
-  const response = await fetch('http://localhost:4000/ndexo', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(datos)
-  });
-
-  const data = await response.json();
-  alert(data.mensaje);
-  modal.style.display = 'none';
-  formNdexo.reset();
-});
+  // Cierre al hacer clic fuera del cuadro blanco
+  window.onclick = function(event) {
+    if (event.target == modalNdexo) {
+      modalNdexo.style.display = "none";
+    }
+    if (event.target == modalVaso) {
+      modalVaso.style.display = "none";
+    }
+  }
 </script>
 
-<script>
-// Abrir y cerrar modal del vaso
-const modalVaso = document.getElementById('modalVaso');
-const imgVaso = document.getElementById('imgVaso');
-const btnCerrarVaso = document.getElementById('cerrarModalVaso');
-
-imgVaso.onclick = () => modalVaso.style.display = 'block';
-btnCerrarVaso.onclick = () => modalVaso.style.display = 'none';
-window.onclick = (e) => { if (e.target == modalVaso) modalVaso.style.display = 'none'; };
-
-// Enviar datos al backend
-const formVaso = document.getElementById('formVaso');
-formVaso.addEventListener('submit', async (e) => {
-  e.preventDefault();
-
-  const datos = {
-    fecha: document.getElementById('fecha').value,
-    hora: document.getElementById('hora').value,
-    lugar: document.getElementById('lugar').value.trim(),
-    aliasdelndexo: document.getElementById('aliasdelndexo').value,
-    problema_causado: document.getElementById('problema_causado').value.trim(),
-    medio_problema: document.getElementById('medio_problema').value.trim(),
-    resultados: document.getElementById('resultados').value.trim(),
-    como_me_senti: document.getElementById('como_me_senti').value.trim()
-  };
-
-  const response = await fetch('http://localhost:4000/vasodeagua', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(datos)
-  });
-
-  const data = await response.json();
-  alert(data.mensaje);
-  modalVaso.style.display = 'none';
-  formVaso.reset();
-});
-</script>
 
 </body>
 
