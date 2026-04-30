@@ -311,3 +311,25 @@ app.post('/ndexo', (req, res) => {
     res.json({ mensaje: 'Registro agregado al vaso correctamente', id: result.insertId });
   });
 });
+
+/* ==========================================
+   Ruta para obtener ndexos de un usuario
+   ========================================== */
+
+   app.get('/ndexo', (req, res) => {
+  const { usuario_id } = req.query;
+
+  if (!usuario_id) {
+    return res.status(400).json({ mensaje: 'usuario_id es obligatorio' });
+  }
+
+  const sql = 'SELECT * FROM ndexo WHERE usuario_id = ? ORDER BY fecha_registro DESC';
+
+  db.query(sql, [usuario_id], (err, results) => {
+    if (err) {
+      console.error('Error al obtener ndexos:', err);
+      return res.status(500).json({ mensaje: 'Error al obtener ndexos' });
+    }
+    res.json(results);
+  });
+});

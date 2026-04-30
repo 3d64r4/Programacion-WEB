@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Reporte de Ndexos</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    th { background-color: #2563eb; color: white; }
+    tr:nth-child(even) { background-color: #f9f9f9; }
+  </style>
+</head>
+<body>
+  <h1>Reporte de Ndexos</h1>
+  <p id="usuarioInfo"></p>
+
+  <table id="tablaNdexos">
+    <thead>
+      <tr>
+        <th>Alias</th>
+        <th>Lugar</th>
+        <th>Actitud</th>
+        <th>Relación</th>
+        <th>Fecha inicio</th>
+        <th>Nivel estrés</th>
+        <th>Fecha registro</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const usuario = JSON.parse(localStorage.getItem('usuario'));
+      if (!usuario) {
+        alert('Debes iniciar sesión para ver tus Ndexos');
+        return;
+      }
+
+      document.getElementById('usuarioInfo').textContent =
+        `Usuario logeado: ${usuario.Nombre} (ID: ${usuario.id})`;
+
+      try {
+        const res = await fetch(`http://localhost:4000/ndexo?usuario_id=${usuario.id}`);
+        const ndexos = await res.json();
+
+        const tbody = document.querySelector('#tablaNdexos tbody');
+        tbody.innerHTML = '';
+
+        ndexos.forEach(n => {
+          const fila = `
+            <tr>
+              <td>${n.Alias}</td>
+              <td>${n.lugar_interaccion || ''}</td>
+              <td>${n.actitud || ''}</td>
+              <td>${n.relacion || ''}</td>
+              <td>${n.fecha_inicio || ''}</td>
+              <td>${n.nivel_estress || ''}</td>
+              <td>${n.fecha_registro || ''}</td>
+            </tr>
+          `;
+          tbody.insertAdjacentHTML('beforeend', fila);
+        });
+      } catch (err) {
+        console.error('Error al cargar ndexos:', err);
+        alert('No se pudo cargar el reporte');
+      }
+    });
+  </script>
+</body>
+</html>
