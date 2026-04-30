@@ -18,6 +18,7 @@
   <table id="tablaNdexos">
     <thead>
       <tr>
+         <th>ID</th>
         <th>Alias</th>
         <th>Lugar</th>
         <th>Actitud</th>
@@ -51,6 +52,7 @@
         ndexos.forEach(n => {
           const fila = `
             <tr>
+                 <td>${n.id}</td>
               <td>${n.Alias}</td>
               <td>${n.lugar_interaccion || ''}</td>
               <td>${n.actitud || ''}</td>
