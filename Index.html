@@ -34,6 +34,13 @@
                         </button>
                     </form>
                 </li>
+                <!-- Mensaje de bienvenida -->
+                <li id="welcomeMessage" style="font-weight: bold; color: #007bff;"></li>
+                <li><button id="logoutBtn"
+                        style="display:none; padding:6px 14px; background:#dc3545; color:#fff; border:none; border-radius:5px; cursor:pointer; font-weight:bold;">Cerrar Sesion</button>
+                </li>
+
+
             </ul>
         </nav>
 
@@ -65,143 +72,158 @@
             </div>
         </div>
 
-<!-- Panel Dashboard oculto -->
-<div id="dashboard" style="display: none; padding: 20px; background: #f0f0f0;">
-    <h2>Bienvenido al Dashboard</h2>
-    <h3>Elige la opción</h3>
-    <ul>
-        <div id="opciones">
-            <figure>
-                 <li class="divhome item1">Registra al N De-XOO</li>
-                 <img id="imgNdexo" src="NDEXOO.png" alt="logo html" width="300px" height="300px" style="cursor:pointer;">
-            </figure>
+        <!-- Panel Dashboard oculto -->
+        <div id="dashboard" style="display: none; padding: 20px; background: #f0f0f0;">
+            <h2>Bienvenido al Dashboard</h2>
+            <h3>Elige la opción</h3>
+            <ul>
+                <div id="opciones">
+                    <figure>
+                        <li class="divhome item1">Registra al N De-XOO</li>
+                        <img id="imgNdexo" src="NDEXOO.png" alt="logo html" width="300px" height="300px"
+                            style="cursor:pointer;">
+                    </figure>
 
-            <figure>
-                <li class="divhome item1">Agrega gotas al vaso</li>
-                <img id="imgVaso" src="gota.jpg" alt="logo css" width="300px" height="300px" style="cursor:pointer;">
-            </figure>
+                    <figure>
+                        <li class="divhome item1">Agrega gotas al vaso</li>
+                        <img id="imgVaso" src="gota.jpg" alt="logo css" width="300px" height="300px"
+                            style="cursor:pointer;">
+                    </figure>
 
 
-            <figure>
-                <li class="divhome item1">Ve cómo va el vaso</li>
-                <img src="vaso.jpg" alt="logo javascript" width="300px" height="300px">
-                <figcaption>¿Necesitas alguna otra opción?</figcaption>
-            </figure>
-            
-            <!-- Modal oculto para vasodeagua -->
+                    <figure>
+                        <li class="divhome item1">Ve cómo va el vaso</li>
+                        <img src="vaso.jpg" alt="logo javascript" width="300px" height="300px">
+                        <figcaption>¿Necesitas alguna otra opción?</figcaption>
+                    </figure>
 
-<div id="modalVaso" class="modal">
-  <div class="modal-contenido">
-    <div style="display:flex; justify-content:space-between; align-items:center;">
-       <h2 style="margin:0;">Registrar Gota</h2>
-       <span id="cerrarModalVaso" class="cerrar" style="cursor:pointer; font-size:32px; color:#aaa;">&times;</span>
-    </div>
-    
-    <form id="formVaso">
-      <div>
-        <label>Fecha de la incidencia:</label>
-        <input type="date" id="fecha" name="fecha" required>
-      </div>
-      <div>
-        <label>Hora aproximada:</label>
-        <input type="time" id="hora" name="hora" required>
-      </div>
-      <div>
-        <label>Lugar:</label>
-        <input type="text" id="lugar" name="lugar" placeholder="Ej. Oficina, Casa...">
-      </div>
-      <div>
-        <label>Alias del N-DeXOO (ID):</label>
-        <input type="number" id="aliasdelndexo" name="aliasdelndexo" required placeholder="ID del registro en ndexo">
-      </div>
-      <div>
-        <label>Relato del problema:</label>
-        <textarea id="problema_causado" name="problema_causado" rows="4" placeholder="¿Qué pasó esta vez?"></textarea>
-      </div>
-      <div>
-        <label>Medio del problema:</label>
-        <input type="text" id="medio_problema" name="medio_problema" placeholder="Ej. Conversación, Mensaje, Reunión...">
-      </div>
-      <div>
-        <label>Resultados:</label>
-        <textarea id="resultados" name="resultados" rows="3" placeholder="¿Qué consecuencias hubo?"></textarea>
-      </div>
-      <div>
-        <label>Cómo me sentí:</label>
-        <textarea id="como_me_senti" name="como_me_senti" rows="3" placeholder="Describe tus emociones"></textarea>
-      </div>
-            
-            <button type="submit" class="btn-save">💾 Guardar Registro</button>
-            <button type="button" class="btn-cancel" id="cancelarBtnVaso">✖ Cancelar</button>
+                    <!-- Modal oculto para vasodeagua -->
 
-             <!--  <button type="submit" class="btn-save" style="background:#2563eb; color:white; padding:15px; border:none; border-radius:10px; cursor:pointer; font-weight:bold;">
+                    <div id="modalVaso" class="modal">
+                        <div class="modal-contenido">
+                            <div style="display:flex; justify-content:space-between; align-items:center;">
+                                <h2 style="margin:0;">Registrar Gota</h2>
+                                <span id="cerrarModalVaso" class="cerrar"
+                                    style="cursor:pointer; font-size:32px; color:#aaa;">&times;</span>
+                            </div>
+
+                            <form id="formVaso">
+                                <div>
+                                    <label>Fecha de la incidencia:</label>
+                                    <input type="date" id="fecha" name="fecha" required>
+                                </div>
+                                <div>
+                                    <label>Hora aproximada:</label>
+                                    <input type="time" id="hora" name="hora" required>
+                                </div>
+                                <div>
+                                    <label>Lugar:</label>
+                                    <input type="text" id="lugar" name="lugar" placeholder="Ej. Oficina, Casa...">
+                                </div>
+                                <div>
+                                    <label>Alias del N-DeXOO (ID):</label>
+                                    <input type="number" id="aliasdelndexo" name="aliasdelndexo" required
+                                        placeholder="ID del registro en ndexo">
+                                </div>
+                                <div>
+                                    <label>Relato del problema:</label>
+                                    <textarea id="problema_causado" name="problema_causado" rows="4"
+                                        placeholder="¿Qué pasó esta vez?"></textarea>
+                                </div>
+                                <div>
+                                    <label>Medio del problema:</label>
+                                    <input type="text" id="medio_problema" name="medio_problema"
+                                        placeholder="Ej. Conversación, Mensaje, Reunión...">
+                                </div>
+                                <div>
+                                    <label>Resultados:</label>
+                                    <textarea id="resultados" name="resultados" rows="3"
+                                        placeholder="¿Qué consecuencias hubo?"></textarea>
+                                </div>
+                                <div>
+                                    <label>Cómo me sentí:</label>
+                                    <textarea id="como_me_senti" name="como_me_senti" rows="3"
+                                        placeholder="Describe tus emociones"></textarea>
+                                </div>
+
+                                <button type="submit" class="btn-save">💾 Guardar Registro</button>
+                                <button type="button" class="btn-cancel" id="cancelarBtnVaso">✖ Cancelar</button>
+
+                                <!--  <button type="submit" class="btn-save" style="background:#2563eb; color:white; padding:15px; border:none; border-radius:10px; cursor:pointer; font-weight:bold;">
         Guardar en el Vaso -->
-    </form>
-  </div>
-</div>
+                            </form>
+                        </div>
+                    </div>
 
 
 
-            <!-- Modal oculto de registro de N De-XOO -->
+                    <!-- Modal oculto de registro de N De-XOO -->
 
 
-<div id="modalNdexo" class="modal">
-  <div class="modal-contenido">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-      <h2 style="margin: 0; font-size: 1.5rem;">Registrar N De-XOO</h2>
-      <span id="cerrarModal" style="cursor:pointer; font-size: 30px; color: #999;">&times;</span>
-    </div>
+                    <div id="modalNdexo" class="modal">
+                        <div class="modal-contenido">
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                                <h2 style="margin: 0; font-size: 1.5rem;">Registrar N De-XOO</h2>
+                                <span id="cerrarModal"
+                                    style="cursor:pointer; font-size: 30px; color: #999;">&times;</span>
+                            </div>
 
-    <form id="formNdexo">
-      <div class="field-group">
-        <label>Alias del individuo *</label>
-        <input type="text" id="Alias" name="Alias" required placeholder="Escribe el nombre o apodo">
-      </div>
+                            <form id="formNdexo">
+                                <div class="field-group">
+                                    <label>Alias del individuo *</label>
+                                    <input type="text" id="Alias" name="Alias" required
+                                        placeholder="Escribe el nombre o apodo">
+                                </div>
 
-      <div class="field-group">
-        <label>Lugar del encuentro</label>
-        <input type="text" id="lugar_interaccion" name="lugar_interaccion" placeholder="Ej. Oficina, Calle...">
-      </div>
+                                <div class="field-group">
+                                    <label>Lugar del encuentro</label>
+                                    <input type="text" id="lugar_interaccion" name="lugar_interaccion"
+                                        placeholder="Ej. Oficina, Calle...">
+                                </div>
 
-      <div class="field-group">
-        <label>Actitud</label>
-        <input type="text" id="actitud" name="actitud" placeholder="Ej. Amistosa, Hostil...">
-      </div>
+                                <div class="field-group">
+                                    <label>Actitud</label>
+                                    <input type="text" id="actitud" name="actitud"
+                                        placeholder="Ej. Amistosa, Hostil...">
+                                </div>
 
-      <div class="field-group">
-        <label>Relación / Vínculo</label>
-        <input type="text" id="relacion" name="relacion" placeholder="Ej. Compañero, Familiar...">
-      </div>
+                                <div class="field-group">
+                                    <label>Relación / Vínculo</label>
+                                    <input type="text" id="relacion" name="relacion"
+                                        placeholder="Ej. Compañero, Familiar...">
+                                </div>
 
-      <div class="field-group">
-        <label>Fecha de inicio</label>
-        <input type="date" id="fecha_inicio" name="fecha_inicio">
-      </div>
+                                <div class="field-group">
+                                    <label>Fecha de inicio</label>
+                                    <input type="date" id="fecha_inicio" name="fecha_inicio">
+                                </div>
 
-      <div class="field-group">
-        <label>Nivel de estrés generado (0-10)</label>
-        <input type="range" id="nivel_estress" name="nivel_estress" min="0" max="10" step="1" 
-               style="width: 100%; margin-top: 10px;"
-               oninput="this.nextElementSibling.value = this.value">
-        <output style="text-align: center; font-weight: bold; font-size: 1.2rem; display: block; color: #2563eb;">5</output>
-      </div>
+                                <div class="field-group">
+                                    <label>Nivel de estrés generado (0-10)</label>
+                                    <input type="range" id="nivel_estress" name="nivel_estress" min="0" max="10"
+                                        step="1" style="width: 100%; margin-top: 10px;"
+                                        oninput="this.nextElementSibling.value = this.value">
+                                    <output
+                                        style="text-align: center; font-weight: bold; font-size: 1.2rem; display: block; color: #2563eb;">5</output>
+                                </div>
 
-      <div class="actions">
-            <button type="submit" class="btn-save">💾 Guardar Registro</button>
-            <button type="button" class="btn-cancel" id="cancelarBtnNdexo">✖ Cancelar</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-
-  
-
+                                <div class="actions">
+                                    <button type="submit" class="btn-save">💾 Guardar Registro</button>
+                                    <button type="button" class="btn-cancel" id="cancelarBtnNdexo">✖ Cancelar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
 
 
-        <a href="tecnicas.pdf" download="tecnicas.pdf">
-            Qué son las técnicas de exteriorización
-        </a>
+
+
+
+
+                    <a href="tecnicas.pdf" download="tecnicas.pdf">
+                        Qué son las técnicas de exteriorización
+                    </a>
     </header>
 
     <footer>
@@ -262,82 +284,119 @@
     </script>
 
     <!-- JS LOGIN -->
-   <script>
-    const formLogin = document.getElementById('formLogin');
+    <script>
 
-formLogin.addEventListener('submit', async (e) => {
-    e.preventDefault();
+        const formLogin = document.getElementById('formLogin');
+        const welcomeMessage = document.getElementById('welcomeMessage');
+        const logoutBtn = document.getElementById('logoutBtn');
 
-    const Email = document.getElementById('Email').value.trim();
-    const Contrasena = document.getElementById('Contrasena').value.trim();
+        formLogin.addEventListener('submit', async (e) => {
+            e.preventDefault();
 
-    if (!Email || !Contrasena) {
-        alert('Completa todos los campos');
-        return;
-    }
+            const Email = document.getElementById('Email').value.trim();
+            const Contrasena = document.getElementById('Contrasena').value.trim();
 
-    const response = await fetch('http://localhost:4000/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ Email, Contrasena })
-    });
+            if (!Email || !Contrasena) {
+                alert('Completa todos los campos');
+                return;
+            }
 
-    const data = await response.json();
+            const response = await fetch('http://localhost:4000/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ Email, Contrasena })
+            });
 
-    if (!response.ok) {
-        alert(data.mensaje);
-        return;
-    }
+            const data = await response.json();
 
-    // Guardar usuario en localStorage
-    localStorage.setItem('usuario', JSON.stringify(data.usuario));
+            if (!response.ok) {
+                alert(data.mensaje);
+                return;
+            }
 
-    // Mostrar el dashboard y ocultar el contenido inicial
-    document.getElementById('dashboard').style.display = 'block';
-    document.getElementById('home').style.display = 'none';
-    document.getElementById('title').style.display = 'none';
-});
+            // Guardar usuario en localStorage
+            localStorage.setItem('usuario', JSON.stringify(data.usuario));
 
-</script>
+            // Mostrar dashboard y ocultar contenido inicial
+            document.getElementById('dashboard').style.display = 'block';
+            document.getElementById('home').style.display = 'none';
+            document.getElementById('title').style.display = 'none';
 
-<script>
-  // Selección de elementos
-  const modalNdexo = document.getElementById('modalNdexo');
-  const modalVaso = document.getElementById('modalVaso');
-  
-  const imgNdexo = document.getElementById('imgNdexo');
-  const imgVaso = document.getElementById('imgVaso');
+            // Mostrar mensaje de bienvenida y logout
+            welcomeMessage.textContent = `Bienvenido, ${data.usuario.Nombre}`;
+            formLogin.style.display = 'none';
+            logoutBtn.style.display = 'inline-block';
+        });
 
-  const btnCerrarNdexo = document.getElementById('cerrarModal');
-  const btnCerrarVaso = document.getElementById('cerrarModalVaso');
-  const btnCancelarNdexo = document.getElementById('cancelarBtnNdexo');
-  const btnCancelarVaso = document.getElementById('cancelarBtnVaso');
+        // Mantener sesión si ya está logueado
+        window.addEventListener('DOMContentLoaded', () => {
+            const usuario = JSON.parse(localStorage.getItem('usuario'));
+            if (usuario) {
+                document.getElementById('dashboard').style.display = 'block';
+                document.getElementById('home').style.display = 'none';
+                document.getElementById('title').style.display = 'none';
 
-  // --- ABRIR ---
-  imgNdexo.onclick = function() { modalNdexo.style.display = "block"; }
-  imgVaso.onclick = function() { modalVaso.style.display = "block"; }
+                welcomeMessage.textContent = `Bienvenido, ${usuario.Nombre}`;
+                formLogin.style.display = 'none';
+                logoutBtn.style.display = 'inline-block';
+            }
+        });
 
-  // --- CERRAR ---
-  btnCerrarNdexo.onclick = function() { modalNdexo.style.display = "none"; }
-  btnCerrarVaso.onclick = function() { modalVaso.style.display = "none"; }
-  
-  if(btnCancelarNdexo) {
-    btnCancelarNdexo.onclick = function() { modalNdexo.style.display = "none"; }
-  }
-  if(btnCancelarVaso) {
-    btnCancelarVaso.onclick = function() { modalVaso.style.display = "none"; }
-  }
+        // Cerrar sesión
+        logoutBtn.addEventListener('click', () => {
+            localStorage.removeItem('usuario');
+            welcomeMessage.textContent = '';
+            logoutBtn.style.display = 'none';
+            formLogin.style.display = 'flex';
 
-  // Cierre al hacer clic fuera del cuadro blanco
-  window.onclick = function(event) {
-    if (event.target == modalNdexo) {
-      modalNdexo.style.display = "none";
-    }
-    if (event.target == modalVaso) {
-      modalVaso.style.display = "none";
-    }
-  }
-</script>
+            // Restaurar vista inicial
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('home').style.display = 'block';
+            document.getElementById('title').style.display = 'block';
+        });
+
+
+
+    </script>
+
+    <script>
+        // Selección de elementos
+        const modalNdexo = document.getElementById('modalNdexo');
+        const modalVaso = document.getElementById('modalVaso');
+
+        const imgNdexo = document.getElementById('imgNdexo');
+        const imgVaso = document.getElementById('imgVaso');
+
+        const btnCerrarNdexo = document.getElementById('cerrarModal');
+        const btnCerrarVaso = document.getElementById('cerrarModalVaso');
+        const btnCancelarNdexo = document.getElementById('cancelarBtnNdexo');
+        const btnCancelarVaso = document.getElementById('cancelarBtnVaso');
+
+        // --- ABRIR ---
+        imgNdexo.onclick = function () { modalNdexo.style.display = "block"; }
+        imgVaso.onclick = function () { modalVaso.style.display = "block"; }
+
+        // --- CERRAR ---
+        btnCerrarNdexo.onclick = function () { modalNdexo.style.display = "none"; }
+        btnCerrarVaso.onclick = function () { modalVaso.style.display = "none"; }
+
+        if (btnCancelarNdexo) {
+            btnCancelarNdexo.onclick = function () { modalNdexo.style.display = "none"; }
+        }
+        if (btnCancelarVaso) {
+            btnCancelarVaso.onclick = function () { modalVaso.style.display = "none"; }
+        }
+
+        // Cierre al hacer clic fuera del cuadro blanco
+        window.onclick = function (event) {
+            if (event.target == modalNdexo) {
+                modalNdexo.style.display = "none";
+            }
+            if (event.target == modalVaso) {
+                modalVaso.style.display = "none";
+            }
+        }
+    </script>
 
 
 </body>
