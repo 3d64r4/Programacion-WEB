@@ -398,6 +398,64 @@
         }
     </script>
 
+    <script>
+    // --- ABRIR / CERRAR MODALES ---
+    const modalNdexo = document.getElementById('modalNdexo');
+    const modalVaso = document.getElementById('modalVaso');
+    ...
+    </script>
+
+    <script>
+const formNdexo = document.getElementById('formNdexo');
+
+formNdexo.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Obtener usuario logueado desde localStorage
+    const usuario = JSON.parse(localStorage.getItem('usuario'));
+    if (!usuario) {
+        alert('Debes iniciar sesión para registrar un Ndexo');
+        return;
+    }
+
+    // Construir objeto con datos del formulario
+    const datos = {
+        Alias: document.getElementById('Alias').value,
+        lugar_interaccion: document.getElementById('lugar_interaccion').value,
+        actitud: document.getElementById('actitud').value,
+        relacion: document.getElementById('relacion').value,
+        fecha_inicio: document.getElementById('fecha_inicio').value,
+        nivel_estress: document.getElementById('nivel_estress').value,
+        usuario_id: usuario.id   // 👈 Aquí se envía el id del usuario logueado
+    };
+
+    try {
+        const res = await fetch('http://localhost:4000/ndexo', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(datos)
+        });
+
+        const json = await res.json();
+
+        if (!res.ok) {
+            alert(json.mensaje || 'Error al registrar Ndexo');
+            return;
+        }
+
+        alert('Ndexo registrado exitosamente');
+        formNdexo.reset();
+        document.getElementById('modalNdexo').style.display = 'none';
+
+    } catch (err) {
+        console.error('Error de fetch:', err);
+        alert('No se pudo conectar con el servidor');
+    }
+});
+</script>
+
+
+
 
 </body>
 

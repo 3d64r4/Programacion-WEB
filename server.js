@@ -77,15 +77,18 @@ const inicializarTablas = () => {
 
   const tablaNdexo = `
     CREATE TABLE IF NOT EXISTS ndexo (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      Alias VARCHAR(150) NOT NULL UNIQUE,
-      lugar_interaccion VARCHAR(150),
-      actitud VARCHAR(150),
-      relacion VARCHAR(150),
-      fecha_inicio DATE,
-      nivel_estress INT,
-      fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    );
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    Alias VARCHAR(150) NOT NULL UNIQUE,
+    lugar_interaccion VARCHAR(150),
+    actitud VARCHAR(150),
+    relacion VARCHAR(150),
+    fecha_inicio DATE,
+    nivel_estress INT,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    usuario_id INT NOT NULL,
+    CONSTRAINT fk_usuario_ndexo FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+      ON UPDATE CASCADE ON DELETE CASCADE
+);
   `;
 
   const tablaVasodeagua = `
@@ -257,7 +260,7 @@ app.listen(4000, () => {
 /* ==========================================
    🚀 REGISTRAR NDEXO
    ========================================== */
-   app.post('/ndexo', (req, res) => {
+   /* app.post('/ndexo', (req, res) => {
   const { Alias, lugar_interaccion, actitud, relacion, fecha_inicio, nivel_estress } = req.body;
   const sql = `INSERT INTO ndexo (Alias, lugar_interaccion, actitud, relacion, fecha_inicio, nivel_estress) VALUES (?, ?, ?, ?, ?, ?)`;
 
@@ -265,7 +268,36 @@ app.listen(4000, () => {
     if (err) return res.status(500).json({ mensaje: 'Error al guardar N De-XOO' });
     res.json({ mensaje: 'N De-XOO registrado correctamente', id: result.insertId });
   });
+});*/
+
+// Ruta para registrar ndexo con llave foránea
+app.post('/ndexo', (req, res) => {
+  // 👇 Esto imprime todo lo que llega desde el frontend
+  console.log('Datos recibidos en /ndexo:', req.body);
+
+  const { Alias, lugar_interaccion, actitud, relacion, fecha_inicio, nivel_estress, usuario_id } = req.body;
+
+  // Validación básica
+  if (!Alias || !usuario_id) {
+    return res.status(400).json({ mensaje: 'Alias y usuario_id son obligatorios' });
+  }
+
+  const sql = `
+    INSERT INTO ndexo (Alias, lugar_interaccion, actitud, relacion, fecha_inicio, nivel_estress, usuario_id)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+  `;
+
+  db.query(sql, [Alias, lugar_interaccion, actitud, relacion, fecha_inicio, nivel_estress, usuario_id], (err, result) => {
+    if (err) {
+      console.error('Error al registrar ndexo:', err);
+      return res.status(500).json({ mensaje: 'Error al guardar N De-XOO' });
+    }
+    res.json({ mensaje: 'N De-XOO registrado correctamente', id: result.insertId });
+  });
 });
+
+
+
 
 /* ==========================================
    🚀 AGREGARLE GOTAS AL VASO
