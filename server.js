@@ -46,19 +46,23 @@ app.use(express.json());
    ========================================== */
 const inicializarTablas = () => {
   const tablaUsuarios = `
-    CREATE TABLE IF NOT EXISTS usuarios (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      Nombre VARCHAR(100) NOT NULL,
-      Apaterno VARCHAR(100),
-      Amaterno VARCHAR(100),
-      Fechanac DATE,
-      Sexo VARCHAR(20),
-      Email VARCHAR(150) UNIQUE NOT NULL,
-      Pais VARCHAR(100),
-      Ciudad VARCHAR(100),
-      Contrasena VARCHAR(255) NOT NULL,
-      fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    );
+  CREATE TABLE IF NOT EXISTS usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    Nombre VARCHAR(100) NOT NULL,
+    Apaterno VARCHAR(100),
+    Amaterno VARCHAR(100),
+    Fechanac DATE,
+    Sexo VARCHAR(20),
+    Email VARCHAR(150) UNIQUE NOT NULL,
+    Contrasena VARCHAR(255) NOT NULL,
+    Telefono VARCHAR(20),
+    Pais VARCHAR(100),
+    Ciudad VARCHAR(100),
+    Rol ENUM('admin','user','guest') DEFAULT 'user',
+    Estado ENUM('activo','inactivo','bloqueado') DEFAULT 'activo',
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ultimo_login TIMESTAMP NULL
+);
   `;
 
   const tablaSolicitudes = `
@@ -131,6 +135,7 @@ inicializarTablas();
    ========================================== */
 
 // Registro de usuarios
+/* 
 app.post('/registro', async (req, res) => {
   const { Nombre, Apaterno, Amaterno, Fechanac, Sexo, Email, Pais, Ciudad, Contrasena } = req.body;
 
@@ -152,7 +157,68 @@ app.post('/registro', async (req, res) => {
   } catch (error) {
     res.status(500).json({ mensaje: 'Error general' });
   }
+});*/
+
+// Ruta de Registro
+app.post('/registro', async (req, res) => {
+  const {
+    Nombre,
+    Apaterno,
+    Amaterno,
+    Fechanac,
+    Sexo,
+    Email,
+    Telefono,
+    Pais,
+    Ciudad,
+    Rol,
+    Estado,
+    Contrasena
+  } = req.body;
+
+  // Validación básica
+  if (!Nombre || !Apaterno || !Fechanac || !Sexo || !Email || !Contrasena || !Pais || !Ciudad) {
+    return res.status(400).json({ mensaje: 'Faltan campos obligatorios' });
+  }
+
+  try {
+    // Encriptar contraseña
+    const hashedPassword = await bcrypt.hash(Contrasena, 10);
+
+    const sql = `
+      INSERT INTO usuarios 
+      (Nombre, Apaterno, Amaterno, Fechanac, Sexo, Email, Telefono, Pais, Ciudad, Rol, Estado, Contrasena) 
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+
+    db.query(sql, [
+      Nombre,
+      Apaterno,
+      Amaterno,
+      Fechanac,
+      Sexo,
+      Email,
+      Telefono,
+      Pais,
+      Ciudad,
+      Rol || 'user',       // Valor por defecto si no se envía
+      Estado || 'activo',  // Valor por defecto si no se envía
+      hashedPassword
+    ], (err, result) => {
+      if (err) {
+        console.error('Error al registrar usuario:', err);
+        return res.status(500).json({ mensaje: 'Error en el servidor' });
+      }
+      res.json({ mensaje: 'Usuario registrado exitosamente', id: result.insertId });
+    });
+
+  } catch (error) {
+    console.error('Error en registro:', error);
+    res.status(500).json({ mensaje: 'Error al procesar la solicitud' });
+  }
 });
+
+
 
 // Ruta de Login
 app.post('/login', (req, res) => {
