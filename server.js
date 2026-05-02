@@ -92,20 +92,27 @@ const inicializarTablas = () => {
   `;
 
   const tablaVasodeagua = `
-    CREATE TABLE IF NOT EXISTS vasodeagua (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      fecha DATE NOT NULL,
-      hora TIME NOT NULL,
-      lugar VARCHAR(150),
-      aliasdelndexo INT NOT NULL,
-      problema_causado TEXT,
-      medio_problema VARCHAR(150),
-      resultados TEXT,
-      como_me_senti TEXT,
-      fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-      CONSTRAINT fk_ndexo FOREIGN KEY (aliasdelndexo) REFERENCES ndexo(id)
-        ON UPDATE CASCADE ON DELETE CASCADE
-    );
+   CREATE TABLE IF NOT EXISTS vasodeagua (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    fecha DATE NOT NULL,
+    hora TIME NOT NULL,
+    lugar VARCHAR(150),
+    aliasdelndexo INT NOT NULL, -- FK a la tabla ndexo
+    usuario_id INT NOT NULL,     -- FK a la tabla usuarios (NUEVA)
+    problema_causado TEXT,
+    medio_problema VARCHAR(150),
+    resultados TEXT,
+    como_me_senti TEXT,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    -- Llave foránea hacia ndexo
+    CONSTRAINT fk_ndexo FOREIGN KEY (aliasdelndexo) REFERENCES ndexo(id)
+      ON UPDATE CASCADE ON DELETE CASCADE,
+    
+    -- Llave foránea hacia usuarios (Asegúrate que tu tabla de usuarios se llame 'usuarios')
+    CONSTRAINT fk_usuario_vaso FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+      ON UPDATE CASCADE ON DELETE CASCADE
+);
   `;
 
   db.query(tablaUsuarios, (err) => {
@@ -302,14 +309,66 @@ app.post('/ndexo', (req, res) => {
 /* ==========================================
    🚀 AGREGARLE GOTAS AL VASO
    ========================================== */
-   app.post('/vasodeagua', (req, res) => {
-  const { fecha, hora, lugar, aliasdelndexo, problema_causado, medio_problema, resultados, como_me_senti } = req.body;
-  const sql = `INSERT INTO vasodeagua (fecha, hora, lugar, aliasdelndexo, problema_causado, medio_problema, resultados, como_me_senti) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+app.post('/vasodeagua', (req, res) => {
+    // Desestructuramos los datos que vienen del frontend
+    const { 
+        fecha, 
+        hora, 
+        lugar, 
+        aliasdelndexo, 
+        usuario_id, 
+        problema_causado, 
+        medio_problema, 
+        resultados, 
+        como_me_senti 
+    } = req.body;
 
-  db.query(sql, [fecha, hora, lugar, aliasdelndexo, problema_causado, medio_problema, resultados, como_me_senti], (err, result) => {
-    if (err) return res.status(500).json({ mensaje: 'Error al guardar registro en vasodeagua' });
-    res.json({ mensaje: 'Registro agregado al vaso correctamente', id: result.insertId });
-  });
+    // Validación básica de integridad
+    if (!usuario_id || !aliasdelndexo) {
+        return res.status(400).json({ 
+            mensaje: 'Faltan datos obligatorios: usuario_id o aliasdelndexo' 
+        });
+    }
+
+    const sql = `INSERT INTO vasodeagua 
+                 (fecha, hora, lugar, aliasdelndexo, usuario_id, problema_causado, medio_problema, resultados, como_me_senti) 
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+    const values = [
+        fecha, 
+        hora, 
+        lugar, 
+        aliasdelndexo, 
+        usuario_id, 
+        problema_causado, 
+        medio_problema, 
+        resultados, 
+        como_me_senti
+    ];
+
+    db.query(sql, values, (err, result) => {
+        if (err) {
+            // Imprimimos el error completo en la consola del servidor para debuggear
+            console.error("❌ Error en INSERT vasodeagua:", err.message);
+            
+            // Si el error es por llave foránea (usuario o ndexo no existen)
+            if (err.errno === 1452) {
+                return res.status(400).json({ 
+                    mensaje: 'Error de relación: El ID de usuario o el ID del Ndexo no existen.' 
+                });
+            }
+
+            return res.status(500).json({ 
+                mensaje: 'Error interno al guardar el registro en la base de datos' 
+            });
+        }
+
+        // Respuesta exitosa
+        res.json({ 
+            mensaje: '¡Gota registrada correctamente en el vaso!', 
+            id: result.insertId 
+        });
+    });
 });
 
 /* ==========================================
@@ -332,4 +391,42 @@ app.post('/ndexo', (req, res) => {
     }
     res.json(results);
   });
+});
+
+/* ==========================================
+   Ruta para obtener las gotas del vaso de un usario  
+   ========================================== */
+app.get('/historial-vaso', (req, res) => {
+    const { usuario_id } = req.query;
+    // Hacemos un JOIN para saber de qué Alias es cada gota
+    const sql = `
+        SELECT v.*, n.Alias 
+        FROM vasodeagua v 
+        JOIN ndexo n ON v.aliasdelndexo = n.id 
+        WHERE v.usuario_id = ? 
+        ORDER BY v.fecha DESC, v.hora DESC`;
+    
+    db.query(sql, [usuario_id], (err, results) => {
+        if (err) return res.status(500).json({ mensaje: 'Error al obtener historial' });
+        res.json(results);
+    });
+});
+
+
+/* ==========================================
+   Ruta para actualizar parcialmente un Ndexo (Soft Delete)
+   ========================================== */
+
+app.patch('/ndexo/:id', (req, res) => {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    const query = "UPDATE ndexo SET status = ? WHERE id = ?";
+    
+    db.query(query, [status, id], (err, result) => {
+        if (err) {
+            return res.status(500).json({ mensaje: "Error en la base de datos", error: err });
+        }
+        res.json({ mensaje: "Estatus actualizado con éxito" });
+    });
 });

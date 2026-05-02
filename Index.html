@@ -16,7 +16,7 @@
             <ul
                 style="display: flex; list-style: none; justify-content: space-around; align-items: center; margin: 0; padding: 0;">
                 <li><a href="#title" style="text-decoration: none; color: #333; font-weight: bold;">Inicio</a></li>
-                <li><a href="#skills" style="text-decoration: none; color: #333; font-weight: bold;">Qué son las TE</a>
+                <li><a href="tecnicas.html" style="text-decoration: none; color: #333; font-weight: bold;">Qué son las TE</a>
                 </li>
                 <li><a href="registro1.html" style="text-decoration: none; color: #333; font-weight: bold;">Sign up</a>
                 </li>
@@ -102,157 +102,182 @@
 
                     <figure>
                         <li class="divhome item1">Ve cómo va el vaso</li>
+                        <a href="vaso.html">
                         <img src="vaso.jpg" alt="logo javascript" width="300px" height="300px">
-                        <figcaption>¿Necesitas alguna otra opción?</figcaption>
+                        
+                        </a>
                     </figure>
 
-                    <!-- Modal oculto para vasodeagua -->
+                  <!-- Modal de Registro de Gota (Forzado Horizontal) -->
+<div id="modalVaso" class="modal">
+    <div class="modal-content" style="width: 750px; margin: auto; background: white; border-radius: 4px; overflow: hidden;">
+        
+        <div class="modal-header" style="padding: 20px; border-bottom: 1px solid #edebe9; display: flex; justify-content: space-between; align-items: center;">
+            <h2 style="margin:0; color: #2b579a; font-family: 'Segoe UI', sans-serif;">💧 Registro de Incidencia: Una gota más</h2>
+            <span id="cerrarModalVaso" style="cursor:pointer; font-size: 24px; color: #999;">&times;</span>
+        </div>
 
-                    <div id="modalVaso" class="modal">
-                        <div class="modal-contenido">
-                            <div style="display:flex; justify-content:space-between; align-items:center;">
-                                <h2 style="margin:0;">Registrar Gota</h2>
-                                <span id="cerrarModalVaso" class="cerrar"
-                                    style="cursor:pointer; font-size:32px; color:#aaa;">&times;</span>
-                            </div>
+        <form id="formVaso" style="padding: 20px; font-family: 'Segoe UI', sans-serif;">
+            <!-- CONTENEDOR GRID -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px 25px;">
+                
+                <!-- SECCIÓN 1 -->
+                <div style="grid-column: span 2; border-bottom: 1px solid #eee; color: #2b579a; font-size: 0.8rem; font-weight: bold; text-transform: uppercase; padding-bottom: 5px;">
+                    Contexto del Evento
+                </div>
+                
+                <div>
+                    <label style="display:block; font-size: 0.85rem; margin-bottom: 5px;">ID del N-DeXOO *</label>
+                    <input type="number" id="aliasdelndexo" name="aliasdelndexo" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;" placeholder="ID vinculado">
+                </div>
+                <div>
+                    <label style="display:block; font-size: 0.85rem; margin-bottom: 5px;">Lugar del Incidente</label>
+                    <input type="text" id="lugar" name="lugar" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;" placeholder="Ej. Oficina, Chat...">
+                </div>
 
-                            <form id="formVaso">
-                                <div>
-                                    <label>Fecha de la incidencia:</label>
-                                    <input type="date" id="fecha" name="fecha" required>
-                                </div>
-                                <div>
-                                    <label>Hora aproximada:</label>
-                                    <input type="time" id="hora" name="hora" required>
-                                </div>
-                                <div>
-                                    <label>Lugar:</label>
-                                    <input type="text" id="lugar" name="lugar" placeholder="Ej. Oficina, Casa...">
-                                </div>
-                                <div>
-                                    <label>Alias del N-DeXOO (ID):</label>
-                                    <input type="number" id="aliasdelndexo" name="aliasdelndexo" required
-                                        placeholder="ID del registro en ndexo">
-                                </div>
-                                <div>
-                                    <label>Relato del problema:</label>
-                                    <textarea id="problema_causado" name="problema_causado" rows="4"
-                                        placeholder="¿Qué pasó esta vez?"></textarea>
-                                </div>
-                                <div>
-                                    <label>Medio del problema:</label>
-                                    <input type="text" id="medio_problema" name="medio_problema"
-                                        placeholder="Ej. Conversación, Mensaje, Reunión...">
-                                </div>
-                                <div>
-                                    <label>Resultados:</label>
-                                    <textarea id="resultados" name="resultados" rows="3"
-                                        placeholder="¿Qué consecuencias hubo?"></textarea>
-                                </div>
-                                <div>
-                                    <label>Cómo me sentí:</label>
-                                    <textarea id="como_me_senti" name="como_me_senti" rows="3"
-                                        placeholder="Describe tus emociones"></textarea>
-                                </div>
+                <div>
+                    <label style="display:block; font-size: 0.85rem; margin-bottom: 5px;">Fecha de la Incidencia *</label>
+                    <input type="date" id="fecha" name="fecha" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
+                <div>
+                    <label style="display:block; font-size: 0.85rem; margin-bottom: 5px;">Hora Aproximada *</label>
+                    <input type="time" id="hora" name="hora" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
 
-                                <button type="submit" class="btn-save">💾 Guardar Registro</button>
-                                <button type="button" class="btn-cancel" id="cancelarBtnVaso">✖ Cancelar</button>
+                <!-- SECCIÓN 2 -->
+                <div style="grid-column: span 2; border-bottom: 1px solid #eee; color: #2b579a; font-size: 0.8rem; font-weight: bold; text-transform: uppercase; padding-bottom: 5px; margin-top: 10px;">
+                    Descripción de la Gota
+                </div>
+                
+                <div style="grid-column: span 2;">
+                    <label style="display:block; font-size: 0.85rem; margin-bottom: 5px;">Medio o Canal del Conflicto</label>
+                    <input type="text" id="medio_problema" name="medio_problema" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;" placeholder="Ej. Mensaje, Comentario sarcástico...">
+                </div>
 
-                                <!--  <button type="submit" class="btn-save" style="background:#2563eb; color:white; padding:15px; border:none; border-radius:10px; cursor:pointer; font-weight:bold;">
-        Guardar en el Vaso -->
-                            </form>
-                        </div>
-                    </div>
+                <div style="grid-column: span 2;">
+                    <label style="display:block; font-size: 0.85rem; margin-bottom: 5px;">Relato del Problema (¿Qué sucedió?)</label>
+                    <textarea id="problema_causado" name="problema_causado" rows="3" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; resize: none;" placeholder="Describe el hecho..."></textarea>
+                </div>
 
+                <!-- SECCIÓN 3 -->
+                <div style="grid-column: span 2; border-bottom: 1px solid #eee; color: #2b579a; font-size: 0.8rem; font-weight: bold; text-transform: uppercase; padding-bottom: 5px; margin-top: 10px;">
+                    Consecuencias e Impresión Interna
+                </div>
+                
+                <div>
+                    <label style="display:block; font-size: 0.85rem; margin-bottom: 5px;">Resultados / Consecuencias</label>
+                    <textarea id="resultados" name="resultados" rows="3" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; resize: none;" placeholder="¿Qué pasó después?"></textarea>
+                </div>
+                <div>
+                    <label style="display:block; font-size: 0.85rem; margin-bottom: 5px;">Cómo me sentí</label>
+                    <textarea id="como_me_senti" name="como_me_senti" rows="3" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; resize: none;" placeholder="Tu estado emocional..."></textarea>
+                </div>
 
+            </div>
 
-                    <!-- Modal oculto de registro de N De-XOO -->
-
-
-                    <div id="modalNdexo" class="modal">
-                        <div class="modal-contenido">
-                            <div
-                                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                                <h2 style="margin: 0; font-size: 1.5rem;">Registrar N De-XOO</h2>
-                                <span id="cerrarModal"
-                                    style="cursor:pointer; font-size: 30px; color: #999;">&times;</span>
-                            </div>
-
-                            <form id="formNdexo">
-                                <div class="field-group">
-                                    <label>Alias del individuo *</label>
-                                    <input type="text" id="Alias" name="Alias" required
-                                        placeholder="Escribe el nombre o apodo">
-                                </div>
-
-                                <div class="field-group">
-                                    <label>Lugar del encuentro</label>
-                                    <input type="text" id="lugar_interaccion" name="lugar_interaccion"
-                                        placeholder="Ej. Oficina, Calle...">
-                                </div>
-
-                                <div class="field-group">
-                                    <label>Actitud</label>
-                                    <input type="text" id="actitud" name="actitud"
-                                        placeholder="Ej. Amistosa, Hostil...">
-                                </div>
-
-                                <div class="field-group">
-                                    <label>Relación / Vínculo</label>
-                                    <input type="text" id="relacion" name="relacion"
-                                        placeholder="Ej. Compañero, Familiar...">
-                                </div>
-
-                                <div class="field-group">
-                                    <label>Fecha de inicio</label>
-                                    <input type="date" id="fecha_inicio" name="fecha_inicio">
-                                </div>
-
-                                <div class="field-group">
-                                    <label>Nivel de estrés generado (0-10)</label>
-                                    <input type="range" id="nivel_estress" name="nivel_estress" min="0" max="10"
-                                        step="1" style="width: 100%; margin-top: 10px;"
-                                        oninput="this.nextElementSibling.value = this.value">
-                                    <output
-                                        style="text-align: center; font-weight: bold; font-size: 1.2rem; display: block; color: #2563eb;">5</output>
-                                </div>
-
-                                <div class="actions">
-                                    <button type="submit" class="btn-save">💾 Guardar Registro</button>
-                                    <button type="button" class="btn-cancel" id="cancelarBtnNdexo">✖ Cancelar</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+            <div class="modal-footer" style="margin-top: 25px; padding-top: 15px; border-top: 1px solid #eee; text-align: right;">
+                <button type="button" class="btn" id="cancelarBtnVaso" style="padding: 8px 15px; background: white; border: 1px solid #ccc; cursor: pointer; border-radius: 2px;">Descartar</button>
+                <button type="submit" class="btn btn-save" style="padding: 8px 15px; background: #2b579a; color: white; border: none; cursor: pointer; border-radius: 2px; margin-left: 10px;">💾 Registrar Gota</button>
+            </div>
+        </form>
+    </div>
+</div>
 
 
 
+                   <!-- Modal de Registro de N De-XOO (Diseño Horizontal/Balanceado) -->
+<div id="modalNdexo" class="modal">
+    <div class="modal-content" style="width: 700px;"> <!-- Ancho aumentado para mejor distribución -->
+        <div class="modal-header">
+            <h2 style="margin:0; color: var(--office-blue);">👤 Perfil de Sujeto: Nuevo N De-XOO</h2>
+            <span id="cerrarModal" style="cursor:pointer; font-size: 24px; color: #999;">&times;</span>
+        </div>
+
+        <form id="formNdexo">
+            <div class="form-grid">
+                
+                <!-- SECCIÓN 1: IDENTIFICACIÓN -->
+                <div class="full section-title">Identificación del Sujeto</div>
+                
+                <div class="full">
+                    <label>Alias o Nombre Clave *</label>
+                    <input type="text" id="Alias" name="Alias" required placeholder="Ej. 'Sujeto A' o apodo específico">
+                </div>
+
+                <!-- SECCIÓN 2: CONTEXTO (Dos columnas) -->
+                <div class="full section-title" style="margin-top: 10px;">Contexto del Vínculo</div>
+                
+                <div>
+                    <label>Relación / Parentesco</label>
+                    <input type="text" id="relacion" name="relacion" placeholder="Ej. Jefe, Vecino, Primo">
+                </div>
+                <div>
+                    <label>Lugar de Interacción Habitual</label>
+                    <input type="text" id="lugar_interaccion" name="lugar_interaccion" placeholder="Ej. Oficina Central">
+                </div>
+
+                <!-- SECCIÓN 3: ESTADO (Dos columnas) -->
+                <div>
+                    <label>Actitud Predominante</label>
+                    <input type="text" id="actitud" name="actitud" placeholder="Ej. Pasivo-Agresiva">
+                </div>
+                <div>
+                    <label>Fecha de Inicio de Registro</label>
+                    <input type="date" id="fecha_inicio" name="fecha_inicio">
+                </div>
+
+                <!-- SECCIÓN 4: IMPACTO (Ancho completo) -->
+                <div class="full section-title" style="margin-top: 10px;">Evaluación de Impacto</div>
+                
+                <div class="full" style="background: #fdfdfd; padding: 15px; border: 1px inset #eee;">
+                    <label style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                        Nivel de Estrés Inicial Generado:
+                        <span id="valorEstrés" style="font-size: 1.2rem; font-weight: bold; color: var(--office-blue);">5 / 10</span>
+                    </label>
+                    <input type="range" id="nivel_estress" name="nivel_estress" min="0" max="10" step="1" 
+                           style="width: 100%; cursor: pointer;"
+                           oninput="document.getElementById('valorEstrés').innerText = this.value + ' / 10'">
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn" id="cancelarBtnNdexo">Descartar</button>
+                <button type="submit" class="btn btn-save">💾 Finalizar Registro</button>
+            </div>
+        </form>
+    </div>
+</div>
 
 
 
-                    <a href="tecnicas.pdf" download="tecnicas.pdf">
+
+
+                   
+    </header>
+
+ <a href="tecnicas.html">
                         Qué son las técnicas de exteriorización
                     </a>
-    </header>
 
     <footer>
         <form id="formulario">
-            <h2>¿Necesitas alguna otra opción? Solicítala</h2>
-            <br>
+            <h2>¿Necesitas alguna otra opción? Solicítala</h>
+                <br>
+            
 
-            <label for="nombre">Nombre</label><br>
+            <label for="nombre">Nombre</label>
             <input class="inputs" id="nombre" type="text" name="nombre" placeholder="Edgar A" required
                 pattern="[A-Za-zÑñ ]+">
             <br>
 
-            <label for="correo">Correo</label><br>
+            <label for="correo">Correo</label>
             <input class="inputs" id="correo" type="email" name="correo" placeholder="ejemplo@hotmail.com" required>
             <br>
 
             <label for="comentarios">Comentarios</label><br>
             <textarea class="inputs" id="comentarios" name="comentarios" placeholder="Escribe tus comentarios aquí..."
                 required></textarea>
-            <br><br>
+            <br>
 
             <input id="inputbuttom" type="submit" value="Enviar">
         </form>
@@ -415,53 +440,99 @@
     </script>
 
     <script>
-        const formNdexo = document.getElementById('formNdexo');
+    // --- LÓGICA PARA FORMULARIO NDEXO ---
+    const formNdexo = document.getElementById('formNdexo');
 
-        formNdexo.addEventListener('submit', async (e) => {
-            e.preventDefault();
+    formNdexo.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const usuario = JSON.parse(localStorage.getItem('usuario'));
+        if (!usuario) {
+            alert('Debes iniciar sesión para registrar un Ndexo');
+            return;
+        }
 
-            // Obtener usuario logueado desde localStorage
-            const usuario = JSON.parse(localStorage.getItem('usuario'));
-            if (!usuario) {
-                alert('Debes iniciar sesión para registrar un Ndexo');
-                return;
+        const datos = {
+            Alias: document.getElementById('Alias').value,
+            lugar_interaccion: document.getElementById('lugar_interaccion').value,
+            actitud: document.getElementById('actitud').value,
+            relacion: document.getElementById('relacion').value,
+            fecha_inicio: document.getElementById('fecha_inicio').value,
+            nivel_estress: document.getElementById('nivel_estress').value,
+            usuario_id: usuario.id
+        };
+
+        try {
+            const res = await fetch('http://localhost:4000/ndexo', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(datos)
+            });
+            const json = await res.json();
+            if (!res.ok) { alert(json.mensaje || 'Error al registrar Ndexo'); return; }
+
+            alert('Ndexo registrado exitosamente');
+            formNdexo.reset();
+            document.getElementById('modalNdexo').style.display = 'none';
+        } catch (err) {
+            console.error('Error:', err);
+            alert('No se pudo conectar con el servidor');
+        }
+    });
+
+   
+</script>
+
+<script>
+    // --- LÓGICA PARA FORMULARIO GOTAS (VASO) ---
+    const formVaso = document.getElementById('formVaso');
+
+    formVaso.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // 1. Obtener el usuario del localStorage
+        const usuario = JSON.parse(localStorage.getItem('usuario'));
+        if (!usuario || !usuario.id) {
+            alert('Debes iniciar sesión para registrar una gota');
+            return;
+        }
+
+        // 2. Construir el objeto con el nombre EXACTO que espera el backend: aliasdelndexo
+        const datosGota = {
+            fecha: document.getElementById('fecha').value,
+            hora: document.getElementById('hora').value,
+            lugar: document.getElementById('lugar').value,
+            aliasdelndexo: document.getElementById('aliasdelndexo').value, // CORREGIDO: antes decía ndexo_id
+            usuario_id: usuario.id, // Tomado automáticamente del login
+            problema_causado: document.getElementById('problema_causado').value,
+            medio_problema: document.getElementById('medio_problema').value,
+            resultados: document.getElementById('resultados').value,
+            como_me_senti: document.getElementById('como_me_senti').value
+        };
+
+        try {
+            const res = await fetch('http://localhost:4000/vasodeagua', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(datosGota)
+            });
+            
+            const json = await res.json();
+            
+            if (!res.ok) { 
+                alert(json.mensaje || 'Error al registrar la gota'); 
+                return; 
             }
 
-            // Construir objeto con datos del formulario
-            const datos = {
-                Alias: document.getElementById('Alias').value,
-                lugar_interaccion: document.getElementById('lugar_interaccion').value,
-                actitud: document.getElementById('actitud').value,
-                relacion: document.getElementById('relacion').value,
-                fecha_inicio: document.getElementById('fecha_inicio').value,
-                nivel_estress: document.getElementById('nivel_estress').value,
-                usuario_id: usuario.id   // 👈 Aquí se envía el id del usuario logueado
-            };
-
-            try {
-                const res = await fetch('http://localhost:4000/ndexo', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(datos)
-                });
-
-                const json = await res.json();
-
-                if (!res.ok) {
-                    alert(json.mensaje || 'Error al registrar Ndexo');
-                    return;
-                }
-
-                alert('Ndexo registrado exitosamente');
-                formNdexo.reset();
-                document.getElementById('modalNdexo').style.display = 'none';
-
-            } catch (err) {
-                console.error('Error de fetch:', err);
-                alert('No se pudo conectar con el servidor');
-            }
-        });
-    </script>
+            alert('¡Gota registrada correctamente!');
+            formVaso.reset();
+            document.getElementById('modalVaso').style.display = 'none';
+            
+        } catch (err) {
+            console.error('Error:', err);
+            alert('Error de conexión con el servidor');
+        }
+    });
+</script>
 
 
 

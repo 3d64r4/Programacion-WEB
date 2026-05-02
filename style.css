@@ -24,7 +24,7 @@ nav {
   width: 100%;
   height: 60px;
   position: fixed;
-  background-color: rgb(105, 129, 226);
+  background-color: rgb(26, 36, 77);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   
   ul {
@@ -377,4 +377,71 @@ img:hover{
   background: #e5e7eb;
   color: #111827;
   transform: translateY(-2px);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 0;
+    border: 1px solid var(--border-color);
+    width: 500px; /* Ajusta según prefieras */
+    border-radius: 4px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+}
+
+.modal-header {
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos columnas */
+    gap: 15px;
+    padding: 20px;
+}
+
+.form-grid .full {
+    grid-column: span 2; /* Campos que ocupan todo el ancho */
+}
+
+.form-grid label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #666;
+}
+
+.form-grid input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 2px;
+    box-sizing: border-box;
+}
+
+.modal-footer {
+    padding: 15px 20px;
+    background: #f8f9fa;
+    border-top: 1px solid var(--border-color);
+    text-align: right;
+}
+
+.btn {
+    padding: 8px 16px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background: white;
+    font-size: 0.9rem;
+}
+
+.btn-save {
+    background: var(--office-blue);
+    color: white;
+    border: none;
+    margin-left: 10px;
 }
