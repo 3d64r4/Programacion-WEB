@@ -3,6 +3,7 @@ body {
   padding: 0;  
   color: rgb(35, 52, 78);
   font-weight: 200;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 a{
@@ -25,7 +26,7 @@ nav {
   height: 60px;
   position: fixed;
   background-color: rgb(26, 36, 77);
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Verdana", Tahoma, Geneva, Verdana, sans-serif;
   
   ul {
     display: flex;
@@ -39,7 +40,7 @@ main {
 }
 
 h1 {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Verdana", Tahoma, Geneva, Verdana, sans-serif;
   font-size: 3rem;
   font-weight: 900;
   text-align: center;
@@ -48,7 +49,7 @@ h1 {
 
 article {
   p,a {
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Verdana", Tahoma, Geneva, Verdana, sans-serif;
     font-size: 1.5rem;
     font-weight: 100;
   }
@@ -94,7 +95,7 @@ footer {
   }
   h2:hover {
    
-    transform: scale(1.1);
+    transform: scale(.94);
   }
   
   .inputs {
@@ -201,7 +202,7 @@ grid-template-rows: 4fr 4fr;
 
 
 h3.divhome {
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Verdana", Tahoma, Geneva, Verdana, sans-serif;
     gap: 10px;
     font-size: 1.5rem;
     font-weight: 500;
@@ -211,7 +212,7 @@ h3.divhome {
 }
 h3 {
   text-align: center;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Verdana", Tahoma, Geneva, Verdana, sans-serif;
   font-size: 2rem;
   font-weight: 600;
   transition: transform 0.5s ease, transform 0.5s ease-in-out;
@@ -256,11 +257,26 @@ h3:hover {
 }
 
 #title, #home, footer, #opciones {
-  animation: aparecer 2.5s ease-in, aparecer 3.5s ease-in-out;
+  animation: aparecer 1.5s ease-in, aparecer 1.5s ease-in-out;
 }
 
 img{
-  animation: rotar 4s linear infinite;
+  /* animation: rotar 10s linear infinite; */
+  animation: bounce 10s infinite;
+}
+
+  @keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);   /* posición normal */
+  }
+  50% {
+    transform: translateY(-20px); /* sube 20px */
+  }
+}
+
+/* Aplicamos la animación a las imágenes */
+img {
+  animation: bounce 2s infinite; /* rebote cada 2 segundos */
 }
 
 img:hover{
