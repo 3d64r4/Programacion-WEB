@@ -36,7 +36,7 @@ db.getConnection((err, connection) => {
    ========================================== */
 app.use(cors({
   origin: ['http://127.0.0.1:5500', 'http://localhost:5500'],
-  methods: ['GET','POST'],
+  methods: ['GET','POST', 'PATCH', 'OPTIONS', 'DELETE'],
   allowedHeaders: ['Content-Type']
 }));
 app.use(express.json());
@@ -84,6 +84,7 @@ const inicializarTablas = () => {
     relacion VARCHAR(150),
     fecha_inicio DATE,
     nivel_estress INT,
+    status ENUM('activo', 'inactivo') DEFAULT 'activo',
     fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     usuario_id INT NOT NULL,
     CONSTRAINT fk_usuario_ndexo FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
@@ -375,14 +376,20 @@ app.post('/vasodeagua', (req, res) => {
    Ruta para obtener ndexos de un usuario
    ========================================== */
 
-   app.get('/ndexo', (req, res) => {
+ app.get('/ndexo', (req, res) => {
   const { usuario_id } = req.query;
 
   if (!usuario_id) {
     return res.status(400).json({ mensaje: 'usuario_id es obligatorio' });
   }
 
-  const sql = 'SELECT * FROM ndexo WHERE usuario_id = ? ORDER BY fecha_registro DESC';
+  // Obtenemos todos los registros mapeando los nulos a 'activo'
+  const sql = `
+    SELECT id, Alias, lugar_interaccion, actitud, relacion, fecha_inicio, nivel_estress, 
+           IFNULL(status, 'activo') AS status 
+    FROM ndexo 
+    WHERE usuario_id = ? 
+    ORDER BY fecha_registro DESC`;
 
   db.query(sql, [usuario_id], (err, results) => {
     if (err) {
@@ -392,6 +399,7 @@ app.post('/vasodeagua', (req, res) => {
     res.json(results);
   });
 });
+
 
 /* ==========================================
    Ruta para obtener las gotas del vaso de un usario  
@@ -416,17 +424,32 @@ app.get('/historial-vaso', (req, res) => {
 /* ==========================================
    Ruta para actualizar parcialmente un Ndexo (Soft Delete)
    ========================================== */
-
 app.patch('/ndexo/:id', (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
+
+    // 1. Validar que el estado enviado sea 'activo' o 'inactivo'
+    if (!status || !['activo', 'inactivo'].includes(status)) {
+        return res.status(400).json({ mensaje: "Estado no válido. Use 'activo' o 'inactivo'." });
+    }
 
     const query = "UPDATE ndexo SET status = ? WHERE id = ?";
     
     db.query(query, [status, id], (err, result) => {
         if (err) {
-            return res.status(500).json({ mensaje: "Error en la base de datos", error: err });
+            console.error("❌ Error controlado en MySQL:", err.message); 
+            // Usamos un return aquí para asegurar que responda y termine el flujo limpiamente sin tirar el servidor
+            return res.status(500).json({ 
+                mensaje: "Error en la base de datos al actualizar el estado", 
+                error: err.message 
+            });
         }
-        res.json({ mensaje: "Estatus actualizado con éxito" });
+        
+        // Responder éxito
+        return res.status(200).json({ 
+            mensaje: "Estatus actualizado con éxito",
+            id: id,
+            nuevoEstado: status
+        });
     });
 });

@@ -204,7 +204,6 @@
       <h1 style="margin:0; font-size: 1.3rem;">Estas rodeado de N De-XOOs</h1>
       <a href="Index.html" class="btn-back">⬅ Panel Principal</a>
     </div>
-    
 
     <div class="info-bar" id="usuarioBar">
       Cargando datos del usuario...
@@ -221,6 +220,7 @@
             <th>Relación</th>
             <th>Fecha Inicio</th>
             <th>Estrés</th>
+            <th>Estado</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -231,77 +231,60 @@
     </div>
   </div>
 
-  <!-- Modal de Registro de N De-XOO (Estilo Corporativo) -->
-<div id="modalNdexo" class="modal">
+  <!-- Modal de Registro de N De-XOO -->
+  <div id="modalNdexo" class="modal">
     <div class="modal-content">
         <div class="modal-header">
             <h2 style="margin:0; color: var(--office-blue);">👤 Registro: Nuevo N De-XOO</h2>
             <span id="cerrarModal" style="cursor:pointer; font-size: 24px; color: #999;">&times;</span>
         </div>
-
         <form id="formNdexo">
             <div class="form-grid">
-                <!-- Identificación del Registro -->
                 <div class="full">
                     <label>Alias del individuo *</label>
-                    <input type="text" id="Alias" name="Alias" required 
-                           placeholder="Escribe el nombre o apodo para identificarlo">
+                    <input type="text" id="Alias" name="Alias" required placeholder="Escribe el nombre o apodo para identificarlo">
                 </div>
-
-                <!-- Detalles del Contexto -->
                 <div>
                     <label>Lugar del encuentro:</label>
-                    <input type="text" id="lugar_interaccion" name="lugar_interaccion" 
-                           placeholder="Ej. Oficina, Universidad...">
+                    <input type="text" id="lugar_interaccion" name="lugar_interaccion" placeholder="Ej. Oficina, Universidad...">
                 </div>
                 <div>
                     <label>Relación / Vínculo:</label>
-                    <input type="text" id="relacion" name="relacion" 
-                           placeholder="Ej. Compañero, Familiar...">
+                    <input type="text" id="relacion" name="relacion" placeholder="Ej. Compañero, Familiar...">
                 </div>
-
-                <!-- Estado Inicial -->
                 <div>
                     <label>Actitud detectada:</label>
-                    <input type="text" id="actitud" name="actitud" 
-                           placeholder="Ej. Hostil, Pasiva...">
+                    <input type="text" id="actitud" name="actitud" placeholder="Ej. Hostil, Pasiva...">
                 </div>
                 <div>
                     <label>Fecha de inicio de registro:</label>
                     <input type="date" id="fecha_inicio" name="fecha_inicio">
                 </div>
-
-                <!-- Indicador de Impacto Emocional -->
                 <div class="full">
                     <label style="display: flex; justify-content: space-between;">
                         Nivel de estrés generado (0-10):
                         <span id="valorEstrés" style="font-weight: bold; color: var(--office-blue);">5</span>
                     </label>
-                    <input type="range" id="nivel_estress" name="nivel_estress" min="0" max="10" step="1" 
-                           style="width: 100%; margin-top: 10px;"
-                           oninput="document.getElementById('valorEstrés').innerText = this.value">
+                    <input type="range" id="nivel_estress" name="nivel_estress" min="0" max="10" step="1" style="width: 100%; margin-top: 10px;" oninput="document.getElementById('valorEstrés').innerText = this.value">
                 </div>
             </div>
-
             <div class="modal-footer">
                 <button type="button" class="btn" id="cancelarBtnNdexo">Cancelar</button>
                 <button type="submit" class="btn btn-save">💾 Guardar Perfil</button>
             </div>
         </form>
     </div>
-</div>
+  </div>
 
-<!-- Modal para REGISTRAR GOTA (Vaso de Agua) -->
-<div id="modalVaso" class="modal">
+  <!-- Modal para REGISTRAR GOTA -->
+  <div id="modalVaso" class="modal">
     <div class="modal-content">
         <div class="modal-header">
             <h2 style="margin:0; color: var(--office-blue);">💧 Registro: Una Gota Más</h2>
             <span onclick="cerrarModal()" style="cursor:pointer; font-size: 24px; color: #999;">&times;</span>
         </div>
-
         <form id="formVaso">
             <div class="form-grid">
-                <!-- Datos Automáticos -->
                 <div>
                     <label>ID Ndexo Seleccionado:</label>
                     <input type="text" id="aliasdelndexo" readonly>
@@ -310,8 +293,6 @@
                     <label>Nombre/Alias:</label>
                     <input type="text" id="modalAlias" readonly>
                 </div>
-
-                <!-- Datos de entrada -->
                 <div>
                     <label>Fecha *</label>
                     <input type="date" id="fecha" required>
@@ -320,44 +301,36 @@
                     <label>Hora *</label>
                     <input type="time" id="hora" required>
                 </div>
-
                 <div class="full">
                     <label>Lugar del incidente:</label>
                     <input type="text" id="lugar" placeholder="Ej. Comedor, Reunión de Zoom...">
                 </div>
-
                 <div class="full">
                     <label>Problema causado:</label>
                     <textarea id="problema_causado" rows="2"></textarea>
                 </div>
-
                 <div class="full">
                     <label>Medio del problema (¿Cómo sucedió?):</label>
                     <input type="text" id="medio_problema">
                 </div>
-
                 <div class="full">
                     <label>Resultados / Consecuencias:</label>
                     <textarea id="resultados" rows="2"></textarea>
                 </div>
-
                 <div class="full">
                     <label>¿Cómo me sentí? (Impacto emocional):</label>
                     <input type="text" id="como_me_senti">
                 </div>
             </div>
-
             <div class="modal-footer">
                 <button type="button" class="btn" onclick="cerrarModal()">Descartar</button>
                 <button type="submit" class="btn btn-save">💧 Registrar Gota</button>
             </div>
         </form>
     </div>
-</div>
-
+  </div>
 
   <script>
-    // Referencia global al modal
     const modal = document.getElementById('modalVaso');
 
     /* ======================================================
@@ -367,15 +340,12 @@
         const form = document.getElementById('formVaso');
         if (form) form.reset();
 
-        // 1. Asignamos el ID del Ndexo al input oculto o visible 'aliasdelndexo'
         const inputId = document.getElementById('aliasdelndexo');
         if (inputId) inputId.value = id;
 
-        // 2. Si tienes un campo solo para mostrar el nombre (opcional)
         const displayAlias = document.getElementById('modalAlias');
         if (displayAlias) displayAlias.value = alias;
 
-        // 3. Poner fecha y hora actual por defecto
         const ahora = new Date();
         document.getElementById('fecha').value = ahora.toISOString().split('T')[0];
         document.getElementById('hora').value = ahora.toTimeString().slice(0, 5);
@@ -394,27 +364,37 @@
         const usuario = JSON.parse(localStorage.getItem('usuario'));
         if (!usuario) {
             alert('Debes iniciar sesión');
-            window.location.href = 'login.html'; // Redirigir si no hay sesión
+            window.location.href = 'login.html';
             return;
         }
 
-        // Mostrar info del usuario en la barra
         const usuarioBar = document.getElementById('usuarioBar');
         if (usuarioBar) {
             usuarioBar.textContent = `Usuario: ${usuario.Nombre || 'Usuario'} | ID: ${usuario.id}`;
         }
 
+        await cargarTabla(usuario.id);
+    });
+
+    async function cargarTabla(usuarioId) {
         try {
-            const res = await fetch(`http://localhost:4000/ndexo?usuario_id=${usuario.id}`);
+            const res = await fetch(`http://localhost:4000/ndexo?usuario_id=${usuarioId}`);
             const ndexos = await res.json();
             const tbody = document.querySelector('#tablaNdexos tbody');
 
             if (!tbody) return;
-            tbody.innerHTML = ''; // Limpiar tabla antes de llenar
+            tbody.innerHTML = ''; 
 
             ndexos.forEach(n => {
+                // Evaluamos si el estatus guardado o por defecto es inactivo
+                const esInactivo = n.status === 'inactivo';
+                
+                const estadoBadge = esInactivo 
+                    ? `<span style="color: #a4262c; font-weight: bold; background: #fde7e9; padding: 2px 6px; border-radius: 2px;">Inactivo</span>` 
+                    : `<span style="color: #107c41; font-weight: bold; background: #dff6dd; padding: 2px 6px; border-radius: 2px;">Activo</span>`;
+
                 const fila = `
-                <tr>
+                <tr style="${esInactivo ? 'opacity: 0.6; background-color: #fafafa;' : ''}">
                     <td>${n.id}</td>
                     <td><strong>${n.Alias}</strong></td>
                     <td>${n.lugar_interaccion || ''}</td>
@@ -422,11 +402,12 @@
                     <td>${n.relacion || ''}</td>
                     <td>${n.fecha_inicio || ''}</td>
                     <td>${n.nivel_estress || '0'}</td>
+                    <td>${estadoBadge}</td>
                     <td>
                         <div class="action-group">
-                            <button class="btn btn-gota" onclick="abrirGota(${n.id}, '${n.Alias}')">💧 Agregar Gota </button>
+                            <button class="btn btn-gota" onclick="abrirGota(${n.id}, '${n.Alias}')" ${esInactivo ? 'disabled style="opacity:0.5; cursor:not-allowed;"' : ''}>💧 Agregar Gota </button>
                             <button class="btn btn-edit" onclick="editarRegistro(${n.id})">Editar</button>
-                            <button class="btn btn-delete" onclick="eliminarRegistro(${n.id})">Borrar</button>
+                            <button class="btn btn-delete" onclick="eliminarRegistro(${n.id}, '${n.status || 'activo'}')">${esInactivo ? 'Activar' : 'Desactivar'}</button>
                         </div>
                     </td>
                 </tr>`;
@@ -435,7 +416,7 @@
         } catch (err) {
             console.error('Error cargando tabla:', err);
         }
-    });
+    }
 
     /* ======================================================
        🚀 ENVIAR REGISTRO DE GOTA (POST)
@@ -451,12 +432,11 @@
             return;
         }
 
-        // Recolectar datos asegurando que los nombres coincidan con el BACKEND
         const datos = {
             fecha: document.getElementById('fecha').value,
             hora: document.getElementById('hora').value,
             lugar: document.getElementById('lugar').value,
-            aliasdelndexo: document.getElementById('aliasdelndexo').value, // ID del Ndexo
+            aliasdelndexo: document.getElementById('aliasdelndexo').value, 
             usuario_id: userId, 
             problema_causado: document.getElementById('problema_causado').value,
             medio_problema: document.getElementById('medio_problema').value,
@@ -485,48 +465,40 @@
         }
     });
 
+    /* ======================================================
+       🔄 CAMBIAR STATUS (SOFT DELETE / ACTIVAR)
+       ====================================================== */
+    window.eliminarRegistro = async (id, estadoActual) => {
+        // Determinamos el nuevo estado opuesto al que tiene actualmente
+        const nuevoEstado = (estadoActual === 'inactivo') ? 'activo' : 'inactivo';
+
+        if (!confirm(`¿Estás seguro de que deseas cambiar el estado a ${nuevoEstado}?`)) {
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:4000/ndexo/${id}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ status: nuevoEstado })
+            });
+
+            if (response.ok) {
+                alert(`Registro cambiado a ${nuevoEstado} correctamente.`);
+                location.reload(); 
+            } else {
+                const error = await response.json();
+                alert('❌ Error al actualizar estado: ' + (error.mensaje || 'Error desconocido'));
+            }
+        } catch (err) {
+            console.error('Error en la petición:', err);
+            alert('❌ Error de conexión con el servidor.');
+        }
+    };
+
     // Cerrar al hacer clic fuera
     window.onclick = (e) => { if (e.target == modal) cerrarModal(); };
-
-
-
-
-    window.eliminarRegistro = async (id) => {
-    // 1. Confirmación de seguridad
-    if (!confirm('¿Estás seguro de que deseas eliminar este registro? (Se marcará como eliminado)')) {
-        return;
-    }
-
-    try {
-        // 2. Llamada al backend usando el método PATCH o PUT
-        // Usamos PATCH porque solo vamos a modificar un campo (status)
-        const response = await fetch(`http://localhost:4000/ndexo/${id}`, {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ status: 'eliminado' })
-        });
-
-        if (response.ok) {
-            alert('Registro marcado como eliminado correctamente.');
-            // 3. Recargar la página para que desaparezca de la lista
-            location.reload(); 
-        } else {
-            const error = await response.json();
-            alert('❌ Error al eliminar: ' + (error.mensaje || 'Error desconocido'));
-        }
-    } catch (err) {
-        console.error('Error en la petición:', err);
-        alert('❌ Error de conexión con el servidor.');
-    }
-};
-
-    // Funciones temporales para evitar errores
-
-
     window.editarRegistro = (id) => alert('Función por implementar para ID: ' + id);
-    
-</script>
-
+  </script>
 </body>
-
 </html>
