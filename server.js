@@ -10,7 +10,8 @@ const app = express();
    ✅ CONFIGURACIÓN DE LA BASE DE DATOS
    ========================================== */
 // Usamos process.env para leer los datos del archivo .env
-const db = mysql.createPool({
+
+/*const db = mysql.createPool({
   host: process.env.DB_HOST,
   port: parseInt(process.env.DB_PORT) || 3306,
   user: process.env.DB_USER,
@@ -19,7 +20,28 @@ const db = mysql.createPool({
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
+});*/
+
+const db = mysql.createPool({
+  host: process.env.DB_HOST,
+  port: Number(process.env.DB_PORT),
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+
+  ssl: {
+    rejectUnauthorized: false
+  },
+
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
 });
+
+
+
+
+
 
 // Prueba de conexión inicial
 db.getConnection((err, connection) => {
