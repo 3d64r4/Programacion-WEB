@@ -55,13 +55,25 @@ db.getConnection((err, connection) => {
 
 /* ==========================================
    ✅ MIDDLEWARES
-   ========================================== */
+   ========================================== 
 app.use(cors({
   origin: ['http://127.0.0.1:5500', 'http://localhost:5500'],
   methods: ['GET','POST', 'PATCH', 'OPTIONS', 'DELETE'],
   allowedHeaders: ['Content-Type']
 }));
-app.use(express.json());
+app.use(express.json());*/
+
+app.use(cors({
+  origin: [
+    'http://127.0.0.1:5500',
+    'http://localhost:5500'
+  ],
+  methods: ['GET','POST','PATCH','OPTIONS','DELETE'],
+  allowedHeaders: ['Content-Type']
+}));
+
+
+
 
 /* ==========================================
    ✅ CREACIÓN AUTOMÁTICA DE TABLAS
@@ -282,10 +294,19 @@ app.post('/solicitudes', (req, res) => {
 
 /* ==========================================
    🚀 INICIO DEL SERVIDOR
-   ========================================== */
+   ========================================== 
 app.listen(4000, () => {
   console.log('🚀 Servidor corriendo en http://localhost:4000');
 });
+*/
+
+const PORT = process.env.PORT || 4000;
+
+app.listen(PORT, () => {
+    console.log(`Servidor iniciado en ${PORT}`);
+});
+
+
 
 /* ==========================================
    🚀 REGISTRAR NDEXO

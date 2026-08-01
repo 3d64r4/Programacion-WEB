@@ -4,7 +4,7 @@
   "name": "ndexoo-backend",
   "version": "1.0.0",
   "description": "Backend de N De-XOO con Express y MySQL Railway",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
