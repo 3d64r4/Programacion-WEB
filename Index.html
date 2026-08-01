@@ -258,7 +258,7 @@
                         Qué son las técnicas de exteriorización
                     </a>
 
-    <footer>
+    <!-- <footer>
         <form id="formulario">
             <h2>¿Necesitas alguna otra opción? Solicítala</h>
                 <br>
@@ -281,6 +281,53 @@
             <input id="inputbuttom" type="submit" value="Enviar">
         </form>
     </footer>
+-->
+
+<footer>
+    <form id="formulario">
+
+        <h2>¿Necesitas alguna otra opción? Solicítala</h2>
+
+        <div class="campo">
+            <label for="nombre">Nombre</label>
+            <input
+                class="inputs"
+                id="nombre"
+                type="text"
+                name="nombre"
+                placeholder="Balthazar R."
+                required
+                pattern="[A-Za-zÑñ ]+">
+        </div>
+
+        <div class="campo">
+            <label for="correo">Correo</label>
+            <input
+                class="inputs"
+                id="correo"
+                type="email"
+                name="correo"
+                placeholder="ejemplo@hotmail.com"
+                required>
+        </div>
+
+        <div class="campo">
+            <label for="comentarios">Comentarios</label>
+            <textarea
+                class="inputs"
+                id="comentarios"
+                name="comentarios"
+                placeholder="Escribe tus comentarios aquí..."
+                required></textarea>
+        </div>
+
+        <div class="botones">
+            <input id="inputbuttom" type="submit" value="Enviar">
+        </div>
+
+    </form>
+</footer>
+
 
     <!-- JS SOLICITUDES -->
     <script>
