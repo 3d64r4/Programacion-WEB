@@ -43,7 +43,7 @@
 <div class="report-wrapper">
     <div class="header-main">
         <h1 style="margin:0; font-size: 1.2rem;">📊 Reporte General de Incidencias</h1>
-        <a href="Index.html" class="btn-back">⬅ Panel Principal</a>
+        <a href="index.html" class="btn-back">⬅ Panel Principal</a>
     </div>
 
     <div class="section-container">
@@ -82,7 +82,7 @@
         if (!usuario) { window.location.href = 'login.html'; return; }
 
         try {
-            const res = await fetch(`https://ndexoo.onrender.com/vaso/historial-vaso?usuario_id=${usuario.id || usuario.ID}`);
+            const res = await fetch(`https://ndexoo.onrender.com/historial-vaso?usuario_id=${usuario.id || usuario.ID}`);
             const datos = await res.json();
             datosGlobal = datos; // guardamos globalmente
 
