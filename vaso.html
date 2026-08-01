@@ -82,7 +82,7 @@
         if (!usuario) { window.location.href = 'login.html'; return; }
 
         try {
-            const res = await fetch(`http://localhost:4000/historial-vaso?usuario_id=${usuario.id || usuario.ID}`);
+            const res = await fetch(`https://ndexoo.onrender.com/vaso/historial-vaso?usuario_id=${usuario.id || usuario.ID}`);
             const datos = await res.json();
             datosGlobal = datos; // guardamos globalmente
 
