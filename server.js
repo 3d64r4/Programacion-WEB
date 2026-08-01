@@ -77,6 +77,7 @@ app.use(cors({
   methods: ['GET','POST','PATCH','OPTIONS','DELETE'],
   allowedHeaders: ['Content-Type']
 }));
+app.use(express.json());
 
 
 
