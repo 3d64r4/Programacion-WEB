@@ -345,7 +345,7 @@
                 return;
             }
 
-            const response = await fetch('http://localhost:4000/solicitudes', {
+            const response = await fetch('https://ndexoo.onrender.com/solicitudes', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ nombresolicitud, correo, comentario })
@@ -381,7 +381,7 @@
                 return;
             }
 
-            const response = await fetch('http://localhost:4000/login', {
+            const response = await fetch('https://ndexoo.onrender.com/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ Email, Contrasena })
@@ -508,7 +508,7 @@
         };
 
         try {
-            const res = await fetch('http://localhost:4000/ndexo', {
+            const res = await fetch('https://ndexoo.onrender.com/ndexo', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(datos)
@@ -556,7 +556,7 @@
         };
 
         try {
-            const res = await fetch('http://localhost:4000/vasodeagua', {
+            const res = await fetch('https://ndexoo.onrender.com/vasodeagua', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(datosGota)
